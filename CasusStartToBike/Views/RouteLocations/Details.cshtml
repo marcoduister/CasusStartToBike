@@ -1,0 +1,42 @@
+﻿@model CasusStartToBike.Models.RouteLocation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RouteLocation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CycleRoute.RouteName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CycleRoute.RouteName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RouteLocation2.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RouteLocation2.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,98 @@
+﻿@model CasusStartToBike.Models.CycleEvent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CycleEvent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Badge.BadgeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Badge.BadgeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CycleRoute.RouteName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CycleRoute.RouteName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Difficulty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Difficulty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsArchived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsArchived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPublic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPublic)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
