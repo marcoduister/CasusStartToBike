@@ -1,15 +1,16 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using CasusStartToBike.Models;
 using System.Linq;
 
-namespace CasusStartToBike.Models
+namespace CasusStartToBike.Data
 {
-    public partial class STBDModel : DbContext
+    public partial class STBDContext : DbContext
     {
-        public STBDModel()
-            : base("name=STBDModel")
+        public STBDContext(): base("name=STBDContext")
         {
+
         }
 
         public virtual DbSet<Badge> Badge { get; set; }

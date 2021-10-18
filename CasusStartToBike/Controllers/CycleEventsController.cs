@@ -6,13 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CasusStartToBike.Data;
 using CasusStartToBike.Models;
 
 namespace CasusStartToBike.Controllers
 {
     public class CycleEventsController : Controller
     {
-        private STBDModel db = new STBDModel();
+        private STBDContext db = new STBDContext();
 
         // GET: CycleEvents
         public ActionResult Index()
