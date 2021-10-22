@@ -1,75 +1,101 @@
 ﻿@model CasusStartToBike.Models.CycleRoute
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Bewerk Fiets Route";
 }
 
-<h2>Edit</h2>
+<h2>Bewerk Fiets Route</h2>
 
 
 @using (Html.BeginForm())
 {
+
+    @Html.Hidden("latLng", "", new { @id = "latLng" });
+    @Html.HiddenFor(model => model.Id)
+
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>CycleRoute</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RouteName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RouteName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RouteName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RouteType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RouteType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RouteType, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RouteName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.RouteName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.RouteName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Difficulty, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Difficulty, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Difficulty, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RouteType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.RouteType, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.RouteType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsPublic, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsPublic)
-                    @Html.ValidationMessageFor(model => model.IsPublic, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Difficulty, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Difficulty, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Difficulty, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsPublic, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.IsPublic)
+                                @Html.ValidationMessageFor(model => model.IsPublic, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BadgeId, "BadgeId", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("BadgeId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.BadgeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Update" class="btn btn-default" />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="col-md-6">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MakerId, "MakerId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MakerId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MakerId, "", new { @class = "text-danger" })
+
+                <div id="map" style="width: 500px; height: 500px"></div>
+
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BadgeId, "BadgeId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("BadgeId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BadgeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="col-md-2">
+                <table class="table" id="Locations">
+                    <thead>
+                        <tr>
+                            <th scope="col">Location</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" id="locationId" placeholder="Location">
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary " id="Addmarker" onclick="addRow()">update</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -81,4 +107,137 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('document').ready(function () {
+            var locationlist = '@Html.Raw(ViewBag.Routecollect)';
+            var List = [] = locationlist.split("}{");
+            for (var i = 0; i < List.length; i++) {
+
+                if (i != 0) {
+                    if (i == List.length-1) {
+                        List[i] = "{" + List[i];
+                    } else {
+                        List[i] = "{" + List[i] + "}";
+                    }
+
+                } else {
+                    List[i] = List[i] + "}"
+                }
+
+                document.getElementById('locationId').value = List[i];
+                document.getElementById('Addmarker').onclick();
+
+                var location = JSON.parse(document.getElementById('locationId').value)
+                addMarker(location);
+            }
+
+        });
+
+        let map;
+        let markers = [];
+
+        function addRow() {
+
+            document.getElementById("latLng").value += document.getElementById('locationId').value;
+            var tbodyRef = document.getElementById('Locations').getElementsByTagName('tbody')[0];
+
+            // Insert a row at the end of table
+            var newRow = tbodyRef.insertRow();
+
+            // Insert a cell at the end of the row
+            var newCell = newRow.insertCell();
+            var newDelete = newRow.insertCell();
+
+            if (true) {
+
+                var button = document.createElement('input');
+
+                // set input attributes.
+                button.setAttribute('type', 'button');
+                button.setAttribute('value', 'Remove');
+
+                // add button's 'onclick' event.
+                button.setAttribute('onclick', 'removeRow(this)');
+
+                newDelete.appendChild(button);
+            };
+
+            // Append a text node to the cell
+            var newText = document.createTextNode(document.getElementById('locationId').value);
+            newCell.appendChild(newText); document.getElementById('locationId').value;
+
+        };
+        function removeRow(oButton) {
+            var empTab = document.getElementById('Locations');
+            var location = document.getElementById("latLng").value.replace(oButton.parentNode.parentNode.firstElementChild.textContent, '');
+            document.getElementById("latLng").value = location;
+            deleteMarkers(oButton.parentNode.parentNode.rowIndex)
+            empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
+        };
+
+        function addMarker(position) {
+            const marker = new google.maps.Marker({
+                position,
+                map,
+            });
+
+            markers.push(marker);
+        }
+        function deleteMarkers(index) {
+            var indexer = index;
+            indexer -= 1;
+            for (let i = 0; i < markers.length; i++) {
+
+                if (i == indexer) {
+                    markers[i].setMap(null);
+                    markers.splice(i, 1);
+                }
+            }
+
+        }
+        function initMap() {
+            const myLatlng = { lat: 51.216667, lng: 5.933333 };
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: myLatlng,
+            });
+
+            // Create the initial InfoWindow.
+            let infoWindow = new google.maps.InfoWindow({
+                content: "Click the map to select next location",
+                position: myLatlng,
+            });
+
+            infoWindow.open(map);
+            // Configure the click listener.
+            map.addListener("click", (mapsMouseEvent) => {
+                var formData = new FormData();
+
+                var LatLng = JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2);
+                formData.append("LatLng", LatLng);
+
+
+                document.getElementById('locationId').value = JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2);
+
+                // Close the current InfoWindow.
+                infoWindow.close();
+                // Create a new InfoWindow.
+                infoWindow = new google.maps.InfoWindow({
+                    position: mapsMouseEvent.latLng,
+                });
+                infoWindow.setContent(
+                    JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+                );
+                infoWindow.open(map);
+            });
+            google.maps.event.addDomListener(document.getElementById('Addmarker'), 'click', function (evt) {
+                var location = JSON.parse(document.getElementById('locationId').value)
+                addMarker(location);
+            });
+        };
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQEASASbDlDyC3C52lh1xOQrjSaLmRS_o&callback=initMap&v=weekly" async></script>
+
 }

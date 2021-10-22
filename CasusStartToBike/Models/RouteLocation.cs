@@ -20,7 +20,6 @@ namespace CasusStartToBike.Models
         public int RouteId { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string Location { get; set; }
 
         public int? LastLocationId { get; set; }
