@@ -17,9 +17,9 @@ namespace CasusStartToBike.Models
             Follower = new HashSet<Follower>();
             Follower1 = new HashSet<Follower>();
             Review = new HashSet<Review>();
-            Account = new HashSet<Account>();
         }
 
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -48,7 +48,7 @@ namespace CasusStartToBike.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Review { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Account { get; set; }
+        [Required]
+        public virtual Account Account { get; set; }
     }
 }

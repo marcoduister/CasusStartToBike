@@ -137,11 +137,12 @@ namespace CasusStartToBike.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.Account)
-                .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
+                .HasKey(e=>e.Id)
+                .HasOptional(s => s.Account)
+                .WithRequired(ad => ad.User);
 
             modelBuilder.Entity<Account>()
+                .HasKey(e => e.UserId)
                 .Property(e => e.FirstName)
                 .IsUnicode(false);
 
