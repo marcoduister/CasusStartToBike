@@ -10,25 +10,22 @@ namespace CasusStartToBike.Models
     public partial class RouteLocation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RouteLocation()
-        {
-            RouteLocation1 = new HashSet<RouteLocation>();
-        }
+        public RouteLocation() { }
 
         public int Id { get; set; }
-
-        public int RouteId { get; set; }
 
         [Required]
         public string Location { get; set; }
 
+        [ForeignKey("CycleRoute")]
+        [Required]
+        public int RouteId { get; set; }
+
+        [ForeignKey("routeLocation")]
         public int? LastLocationId { get; set; }
 
         public virtual CycleRoute CycleRoute { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RouteLocation> RouteLocation1 { get; set; }
-
-        public virtual RouteLocation RouteLocation2 { get; set; }
+        public virtual RouteLocation routeLocation { get; set; }
     }
 }

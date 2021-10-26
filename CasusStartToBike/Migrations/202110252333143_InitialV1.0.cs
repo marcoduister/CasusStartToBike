@@ -3,7 +3,7 @@ namespace CasusStartToBike.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class InitialV10 : DbMigration
     {
         public override void Up()
         {
@@ -12,14 +12,14 @@ namespace CasusStartToBike.Migrations
                 c => new
                     {
                         UserId = c.Int(nullable: false),
-                        FirstName = c.String(nullable: false, maxLength: 50, unicode: false),
-                        LastName = c.String(nullable: false, maxLength: 50, unicode: false),
+                        FirstName = c.String(maxLength: 50, unicode: false),
+                        LastName = c.String(maxLength: 50, unicode: false),
                         Birthdate = c.DateTime(nullable: false, storeType: "date"),
-                        Residence = c.String(nullable: false, maxLength: 50, unicode: false),
+                        Residence = c.String(maxLength: 50, unicode: false),
                         ProfileImage = c.String(maxLength: 255, fixedLength: true, unicode: false),
                         Distance = c.Int(),
                     })
-                .PrimaryKey(t => new { t.UserId, t.FirstName, t.LastName, t.Birthdate, t.Residence })
+                .PrimaryKey(t => t.UserId)
                 .ForeignKey("dbo.User", t => t.UserId)
                 .Index(t => t.UserId);
             
@@ -32,8 +32,11 @@ namespace CasusStartToBike.Migrations
                         Password = c.String(nullable: false, maxLength: 50, unicode: false),
                         IsActive = c.Int(nullable: false),
                         Role = c.Long(nullable: false),
+                        CycleEvent_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.CycleEvent", t => t.CycleEvent_Id)
+                .Index(t => t.CycleEvent_Id);
             
             CreateTable(
                 "dbo.CycleEvent",
@@ -111,8 +114,8 @@ namespace CasusStartToBike.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Location = c.String(nullable: false, unicode: false),
                         RouteId = c.Int(nullable: false),
-                        Location = c.String(nullable: false, maxLength: 50, unicode: false),
                         LastLocationId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -146,6 +149,7 @@ namespace CasusStartToBike.Migrations
             DropForeignKey("dbo.CycleRoute", "MakerId", "dbo.User");
             DropForeignKey("dbo.CycleEvent", "MakerId", "dbo.User");
             DropForeignKey("dbo.Review", "EventId", "dbo.CycleEvent");
+            DropForeignKey("dbo.User", "CycleEvent_Id", "dbo.CycleEvent");
             DropForeignKey("dbo.CycleRoute", "BadgeId", "dbo.Badge");
             DropForeignKey("dbo.RouteLocation", "RouteId", "dbo.CycleRoute");
             DropForeignKey("dbo.RouteLocation", "LastLocationId", "dbo.RouteLocation");
@@ -165,6 +169,7 @@ namespace CasusStartToBike.Migrations
             DropIndex("dbo.CycleEvent", new[] { "RouteId" });
             DropIndex("dbo.CycleEvent", new[] { "BadgeId" });
             DropIndex("dbo.CycleEvent", new[] { "MakerId" });
+            DropIndex("dbo.User", new[] { "CycleEvent_Id" });
             DropIndex("dbo.Account", new[] { "UserId" });
             DropTable("dbo.Follower");
             DropTable("dbo.RouteLocation");

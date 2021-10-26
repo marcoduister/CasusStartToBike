@@ -42,7 +42,7 @@
 
 
 <div class="container-fluid">
-    @Html.Hidden("latLng", "", new { @id = "latLng" });
+    @Html.Hidden("latLng", "", new { @id = "latLng" })
     <div class="row">
         <div class="col-md-3">
             <div>
@@ -182,6 +182,8 @@
             .catch((e) => window.alert("Directions request failed due to " + status));
     }
 </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQEASASbDlDyC3C52lh1xOQrjSaLmRS_o&callback=initMap&v=weekly" async></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQEASASbDlDyC3C52lh1xOQrjSaLmRS_o&callback=initMap&v=weekly" async defer>
+
+    </script>
 
 }

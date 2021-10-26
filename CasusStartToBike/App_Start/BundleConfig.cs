@@ -8,6 +8,8 @@ namespace CasusStartToBike
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            "~/Assets/Scripts/jquery.validate*"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Assets/Scripts/bootstrap.min.js"));

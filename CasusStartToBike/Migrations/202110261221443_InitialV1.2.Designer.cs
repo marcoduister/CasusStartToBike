@@ -7,13 +7,13 @@ namespace CasusStartToBike.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Contextv21 : IMigrationMetadata
+    public sealed partial class InitialV12 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Contextv21));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialV12));
         
         string IMigrationMetadata.Id
         {
-            get { return "202110251514203_Contextv2.1"; }
+            get { return "202110261221443_InitialV1.2"; }
         }
         
         string IMigrationMetadata.Source

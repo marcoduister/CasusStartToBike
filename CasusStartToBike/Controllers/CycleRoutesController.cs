@@ -36,7 +36,7 @@ namespace CasusStartToBike.Controllers
             {
                 return HttpNotFound();
             }
-            List<RouteLocation> route = db.RouteLocation.ToList();
+            List<RouteLocation> route = db.RouteLocation.Where(e=>e.RouteId == id).ToList();
             string routecollect = "";
             foreach (var item in route)
             {
@@ -128,21 +128,20 @@ namespace CasusStartToBike.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            List<RouteLocation> route = db.RouteLocation.ToList();
-            string routecollect = "";
-            foreach (var item in route)
-            {
-                routecollect += item.Location;
-            }
             var Model = db.CycleRoute.Find(id);
             
             if (Model == null)
             {
                 return HttpNotFound();
             }
+            List<RouteLocation> route = db.RouteLocation.Where(e => e.RouteId == id).ToList();
+            string routecollect = "";
+            foreach (var item in route)
+            {
+                routecollect += item.Location;
+            }
             ViewBag.Routecollect = routecollect;
-            ViewBag.BadgeId = new SelectList(db.Badge, "Id", "BadgeName", Model.BadgeId);
-            ViewBag.MakerId = new SelectList(db.User, "Id", "Email", Model.MakerId);
+            ViewBag.Badge = db.Badge.ToList();
             return View(Model);
         }
 

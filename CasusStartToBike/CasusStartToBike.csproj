@@ -139,19 +139,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Data\Migrations\202110181242406_Initial.cs" />
-    <Compile Include="Data\Migrations\202110181242406_Initial.Designer.cs">
-      <DependentUpon>202110181242406_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202110252333143_InitialV1.0.cs" />
+    <Compile Include="Migrations\202110252333143_InitialV1.0.Designer.cs">
+      <DependentUpon>202110252333143_InitialV1.0.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\Migrations\202110211916139_locationchange.cs" />
-    <Compile Include="Data\Migrations\202110211916139_locationchange.Designer.cs">
-      <DependentUpon>202110211916139_locationchange.cs</DependentUpon>
+    <Compile Include="Migrations\202110260010554_InitialV1.1.cs" />
+    <Compile Include="Migrations\202110260010554_InitialV1.1.Designer.cs">
+      <DependentUpon>202110260010554_InitialV1.1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\Migrations\202110251514203_Contextv2.1.cs" />
-    <Compile Include="Data\Migrations\202110251514203_Contextv2.1.Designer.cs">
-      <DependentUpon>202110251514203_Contextv2.1.cs</DependentUpon>
+    <Compile Include="Migrations\202110261221443_InitialV1.2.cs" />
+    <Compile Include="Migrations\202110261221443_InitialV1.2.Designer.cs">
+      <DependentUpon>202110261221443_InitialV1.2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\Migrations\Configuration.cs" />
+    <Compile Include="Migrations\202110261225511_InitialV1.3.cs" />
+    <Compile Include="Migrations\202110261225511_InitialV1.3.Designer.cs">
+      <DependentUpon>202110261225511_InitialV1.3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Badge.cs" />
     <Compile Include="Models\CycleEvent.cs" />
@@ -183,8 +187,10 @@
     <Content Include="Assets\Contents\bootstrap.rtl.min.css" />
     <Content Include="Assets\Contents\CMSPanel.css" />
     <Content Include="Assets\Contents\Site.css" />
-    <Content Include="Assets\Scripts\CMSPanel.css" />
-    <Content Include="Assets\Scripts\Site.css" />
+    <None Include="Assets\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Assets\Scripts\jquery.validate.min.js" />
+    <Content Include="Assets\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Assets\Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -215,7 +221,6 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\CycleEvents\Create.cshtml" />
     <Content Include="Views\CycleEvents\Delete.cshtml" />
-    <Content Include="Views\CycleEvents\Details.cshtml" />
     <Content Include="Views\CycleEvents\Edit.cshtml" />
     <Content Include="Views\CycleEvents\Index.cshtml" />
     <Content Include="Views\CycleRoutes\Create.cshtml" />
@@ -274,18 +279,23 @@
     <Content Include="Assets\Contents\bootstrap.min.css.map" />
     <Content Include="Assets\Contents\bootstrap.rtl.css.map" />
     <Content Include="Assets\Contents\bootstrap.rtl.min.css.map" />
+    <Content Include="Assets\Scripts\jquery.validate.js" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_modal.cshtml" />
+    <Content Include="Views\CycleEvents\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\Migrations\202110181242406_Initial.resx">
-      <DependentUpon>202110181242406_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110252333143_InitialV1.0.resx">
+      <DependentUpon>202110252333143_InitialV1.0.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Data\Migrations\202110211916139_locationchange.resx">
-      <DependentUpon>202110211916139_locationchange.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110260010554_InitialV1.1.resx">
+      <DependentUpon>202110260010554_InitialV1.1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Data\Migrations\202110251514203_Contextv2.1.resx">
-      <DependentUpon>202110251514203_Contextv2.1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110261221443_InitialV1.2.resx">
+      <DependentUpon>202110261221443_InitialV1.2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110261225511_InitialV1.3.resx">
+      <DependentUpon>202110261225511_InitialV1.3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

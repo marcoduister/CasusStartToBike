@@ -31,16 +31,17 @@ namespace CasusStartToBike.Models
 
         public bool IsPublic { get; set; }
 
+        [ForeignKey("User")]
         public int MakerId { get; set; }
 
-        public int BadgeId { get; set; }
+        [ForeignKey("Badge")]
+        public int? BadgeId { get; set; }
 
         public virtual Badge Badge { get; set; }
+        public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CycleEvent> CycleEvent { get; set; }
-
-        public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Review { get; set; }
