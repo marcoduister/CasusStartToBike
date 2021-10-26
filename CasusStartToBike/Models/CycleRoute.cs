@@ -1,15 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+
 namespace CasusStartToBike.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+
 
     [Table("CycleRoute")]
     public partial class CycleRoute
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CycleRoute()
         {
             CycleEvent = new HashSet<CycleEvent>();
@@ -30,21 +31,21 @@ namespace CasusStartToBike.Models
 
         public bool IsPublic { get; set; }
 
+        [ForeignKey("User")]
         public int MakerId { get; set; }
 
-        public int BadgeId { get; set; }
+        [ForeignKey("Badge")]
+        public int? BadgeId { get; set; }
 
         public virtual Badge Badge { get; set; }
+        public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CycleEvent> CycleEvent { get; set; }
 
-        public virtual User User { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Review { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RouteLocation> RouteLocation { get; set; }
     }
 }

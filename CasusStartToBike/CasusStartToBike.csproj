@@ -135,14 +135,25 @@
     <Compile Include="Controllers\FollowersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
-    <Compile Include="Controllers\RouteLocationsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110181242406_Initial.cs" />
-    <Compile Include="Migrations\202110181242406_Initial.Designer.cs">
-      <DependentUpon>202110181242406_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202110252333143_InitialV1.0.cs" />
+    <Compile Include="Migrations\202110252333143_InitialV1.0.Designer.cs">
+      <DependentUpon>202110252333143_InitialV1.0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110260010554_InitialV1.1.cs" />
+    <Compile Include="Migrations\202110260010554_InitialV1.1.Designer.cs">
+      <DependentUpon>202110260010554_InitialV1.1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110261221443_InitialV1.2.cs" />
+    <Compile Include="Migrations\202110261221443_InitialV1.2.Designer.cs">
+      <DependentUpon>202110261221443_InitialV1.2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110261225511_InitialV1.3.cs" />
+    <Compile Include="Migrations\202110261225511_InitialV1.3.Designer.cs">
+      <DependentUpon>202110261225511_InitialV1.3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
@@ -151,33 +162,44 @@
     <Compile Include="Models\CycleRoute.cs" />
     <Compile Include="Models\Follower.cs" />
     <Compile Include="Models\Review.cs" />
-    <Compile Include="Models\RouteLocation.cs" />
     <Compile Include="Data\STBDContext.cs" />
+    <Compile Include="Models\RouteLocation.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CycleRouteViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Content\bootstrap-theme.css" />
-    <Content Include="Assets\Content\bootstrap-theme.min.css" />
-    <Content Include="Assets\Content\bootstrap.css" />
-    <Content Include="Assets\Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
-    <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Global.asax" />
-    <Content Include="Assets\Content\Site.css" />
-    <Content Include="Assets\Scripts\bootstrap.js" />
-    <Content Include="Assets\Scripts\bootstrap.min.js" />
-    <None Include="Assets\Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Assets\Scripts\jquery-3.4.1.js" />
-    <Content Include="Assets\Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Assets\Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Assets\Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Assets\Contents\bootstrap-grid.css" />
+    <Content Include="Assets\Contents\bootstrap-grid.min.css" />
+    <Content Include="Assets\Contents\bootstrap-grid.rtl.css" />
+    <Content Include="Assets\Contents\bootstrap-grid.rtl.min.css" />
+    <Content Include="Assets\Contents\bootstrap-reboot.css" />
+    <Content Include="Assets\Contents\bootstrap-reboot.min.css" />
+    <Content Include="Assets\Contents\bootstrap-reboot.rtl.css" />
+    <Content Include="Assets\Contents\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Assets\Contents\bootstrap-utilities.css" />
+    <Content Include="Assets\Contents\bootstrap-utilities.min.css" />
+    <Content Include="Assets\Contents\bootstrap-utilities.rtl.css" />
+    <Content Include="Assets\Contents\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Assets\Contents\bootstrap.css" />
+    <Content Include="Assets\Contents\bootstrap.min.css" />
+    <Content Include="Assets\Contents\bootstrap.rtl.css" />
+    <Content Include="Assets\Contents\bootstrap.rtl.min.css" />
+    <Content Include="Assets\Contents\CMSPanel.css" />
+    <Content Include="Assets\Contents\Site.css" />
     <None Include="Assets\Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Assets\Scripts\jquery.validate.js" />
     <Content Include="Assets\Scripts\jquery.validate.min.js" />
     <Content Include="Assets\Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Assets\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Assets\Scripts\modernizr-2.8.3.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Assets\Scripts\bootstrap.bundle.js" />
+    <Content Include="Assets\Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Assets\Scripts\bootstrap.esm.js" />
+    <Content Include="Assets\Scripts\bootstrap.esm.min.js" />
+    <Content Include="Assets\Scripts\bootstrap.js" />
+    <Content Include="Assets\Scripts\bootstrap.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -199,7 +221,6 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\CycleEvents\Create.cshtml" />
     <Content Include="Views\CycleEvents\Delete.cshtml" />
-    <Content Include="Views\CycleEvents\Details.cshtml" />
     <Content Include="Views\CycleEvents\Edit.cshtml" />
     <Content Include="Views\CycleEvents\Index.cshtml" />
     <Content Include="Views\CycleRoutes\Create.cshtml" />
@@ -207,11 +228,6 @@
     <Content Include="Views\CycleRoutes\Details.cshtml" />
     <Content Include="Views\CycleRoutes\Edit.cshtml" />
     <Content Include="Views\CycleRoutes\Index.cshtml" />
-    <Content Include="Views\RouteLocations\Create.cshtml" />
-    <Content Include="Views\RouteLocations\Delete.cshtml" />
-    <Content Include="Views\RouteLocations\Details.cshtml" />
-    <Content Include="Views\RouteLocations\Edit.cshtml" />
-    <Content Include="Views\RouteLocations\Index.cshtml" />
     <Content Include="Views\Reviews\Create.cshtml" />
     <Content Include="Views\Reviews\Delete.cshtml" />
     <Content Include="Views\Reviews\Details.cshtml" />
@@ -232,6 +248,12 @@
     <Content Include="Views\Accounts\Details.cshtml" />
     <Content Include="Views\Accounts\Edit.cshtml" />
     <Content Include="Views\Accounts\Index.cshtml" />
+    <Content Include="Assets\Scripts\bootstrap.min.js.map" />
+    <Content Include="Assets\Scripts\bootstrap.js.map" />
+    <Content Include="Assets\Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Assets\Scripts\bootstrap.esm.js.map" />
+    <Content Include="Assets\Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Assets\Scripts\bootstrap.bundle.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -241,17 +263,39 @@
     <Content Include="Assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Assets\Content\bootstrap.min.css.map" />
-    <Content Include="Assets\Content\bootstrap.css.map" />
-    <Content Include="Assets\Content\bootstrap-theme.min.css.map" />
-    <Content Include="Assets\Content\bootstrap-theme.css.map" />
+    <Content Include="Assets\Contents\bootstrap-grid.css.map" />
+    <Content Include="Assets\Contents\bootstrap-grid.min.css.map" />
+    <Content Include="Assets\Contents\bootstrap-grid.rtl.css.map" />
+    <Content Include="Assets\Contents\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Assets\Contents\bootstrap-reboot.css.map" />
+    <Content Include="Assets\Contents\bootstrap-reboot.min.css.map" />
+    <Content Include="Assets\Contents\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Assets\Contents\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Assets\Contents\bootstrap-utilities.css.map" />
+    <Content Include="Assets\Contents\bootstrap-utilities.min.css.map" />
+    <Content Include="Assets\Contents\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Assets\Contents\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Assets\Contents\bootstrap.css.map" />
+    <Content Include="Assets\Contents\bootstrap.min.css.map" />
+    <Content Include="Assets\Contents\bootstrap.rtl.css.map" />
+    <Content Include="Assets\Contents\bootstrap.rtl.min.css.map" />
+    <Content Include="Assets\Scripts\jquery.validate.js" />
     <None Include="packages.config" />
-    <Content Include="Assets\Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Assets\Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Views\Shared\_modal.cshtml" />
+    <Content Include="Views\CycleEvents\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202110181242406_Initial.resx">
-      <DependentUpon>202110181242406_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202110252333143_InitialV1.0.resx">
+      <DependentUpon>202110252333143_InitialV1.0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110260010554_InitialV1.1.resx">
+      <DependentUpon>202110260010554_InitialV1.1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110261221443_InitialV1.2.resx">
+      <DependentUpon>202110261221443_InitialV1.2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110261225511_InitialV1.3.resx">
+      <DependentUpon>202110261225511_InitialV1.3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

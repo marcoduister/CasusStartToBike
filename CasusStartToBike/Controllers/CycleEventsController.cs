@@ -40,29 +40,26 @@ namespace CasusStartToBike.Controllers
         // GET: CycleEvents/Create
         public ActionResult Create()
         {
-            ViewBag.BadgeId = new SelectList(db.Badge, "Id", "BadgeName");
-            ViewBag.RouteId = new SelectList(db.CycleRoute, "Id", "RouteName");
-            ViewBag.MakerId = new SelectList(db.User, "Id", "Email");
+            ViewBag.Route = db.CycleRoute.ToList();
+            ViewBag.Badge = db.Badge.ToList();
             return View();
         }
 
         // POST: CycleEvents/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,EventName,EventStart,EventEnd,Location,Difficulty,IsArchived,IsPublic,MakerId,BadgeId,RouteId")] CycleEvent cycleEvent)
+        public ActionResult Create(CycleEvent cycleEvent)
         {
             if (ModelState.IsValid)
             {
+                cycleEvent.MakerId = 1;
                 db.CycleEvent.Add(cycleEvent);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BadgeId = new SelectList(db.Badge, "Id", "BadgeName", cycleEvent.BadgeId);
-            ViewBag.RouteId = new SelectList(db.CycleRoute, "Id", "RouteName", cycleEvent.RouteId);
-            ViewBag.MakerId = new SelectList(db.User, "Id", "Email", cycleEvent.MakerId);
+            ViewBag.Route = db.CycleRoute.ToList();
+            ViewBag.Badge = db.Badge.ToList();
             return View(cycleEvent);
         }
 
@@ -78,29 +75,83 @@ namespace CasusStartToBike.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BadgeId = new SelectList(db.Badge, "Id", "BadgeName", cycleEvent.BadgeId);
-            ViewBag.RouteId = new SelectList(db.CycleRoute, "Id", "RouteName", cycleEvent.RouteId);
-            ViewBag.MakerId = new SelectList(db.User, "Id", "Email", cycleEvent.MakerId);
+            ViewBag.Route = db.CycleRoute.ToList();
+            ViewBag.Badge = db.Badge.ToList();
             return View(cycleEvent);
         }
 
         // POST: CycleEvents/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EventName,EventStart,EventEnd,Location,Difficulty,IsArchived,IsPublic,MakerId,BadgeId,RouteId")] CycleEvent cycleEvent)
+        public ActionResult Edit(CycleEvent cycleEvent)
         {
             if (ModelState.IsValid)
             {
+                cycleEvent.MakerId = 1;
                 db.Entry(cycleEvent).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.BadgeId = new SelectList(db.Badge, "Id", "BadgeName", cycleEvent.BadgeId);
-            ViewBag.RouteId = new SelectList(db.CycleRoute, "Id", "RouteName", cycleEvent.RouteId);
-            ViewBag.MakerId = new SelectList(db.User, "Id", "Email", cycleEvent.MakerId);
+            ViewBag.Route = db.CycleRoute.ToList();
+            ViewBag.Badge = db.Badge.ToList();
             return View(cycleEvent);
+        }
+        [HttpGet]
+        public ActionResult Join(int id)
+        {
+            if (id != 0)
+            {
+                if (db.CycleEvent.Any(e=>e.Id == id))
+                {
+                    try
+                    {
+                        var game = db.CycleEvent.First(e => e.Id == id);
+                        if(!game.Deelnemers.Any(e=>e.Id == 1))
+                        {
+                            var User = db.User.First(e => e.Id == 1);
+                            game.Deelnemers.Add(User);
+                            db.SaveChanges();
+                        }
+
+                        return RedirectToAction("Details", "CycleEvents", new { id = id });
+                    }
+                    catch (Exception)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    
+                }
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult Unsubscribe(int EventId,int UserId)
+        {
+            if (EventId != 0)
+            {
+                if (db.CycleEvent.Any(e => e.Id == EventId))
+                {
+                    try
+                    {
+                        var game = db.CycleEvent.First(e => e.Id == EventId);
+                        if (game.Deelnemers.Any(e => e.Id == UserId))
+                        {
+                            var User = db.User.First(e => e.Id == UserId);
+                            game.Deelnemers.Remove(User);
+                            db.Entry(game).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+
+                        return RedirectToAction("Details", "CycleEvents", new { id = EventId });
+                    }
+                    catch (Exception)
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: CycleEvents/Delete/5

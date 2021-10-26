@@ -35,12 +35,12 @@ namespace CasusStartToBike.Data
 
             modelBuilder.Entity<Badge>()
                 .HasMany(e => e.CycleEvent)
-                .WithRequired(e => e.Badge)
+                .WithOptional(e => e.Badge)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Badge>()
                 .HasMany(e => e.CycleRoute)
-                .WithRequired(e => e.Badge)
+                .WithOptional(e => e.Badge)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CycleEvent>()
@@ -50,6 +50,10 @@ namespace CasusStartToBike.Data
             modelBuilder.Entity<CycleEvent>()
                 .Property(e => e.Location)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<CycleEvent>()
+                .HasMany(e => e.Deelnemers)
+                .WithMany(e => e.CycleEvent_Participate);
 
             modelBuilder.Entity<CycleEvent>()
                 .HasMany(e => e.Review)
@@ -66,7 +70,7 @@ namespace CasusStartToBike.Data
 
             modelBuilder.Entity<CycleRoute>()
                 .HasMany(e => e.CycleEvent)
-                .WithRequired(e => e.CycleRoute)
+                .WithOptional(e => e.CycleRoute)
                 .HasForeignKey(e => e.RouteId)
                 .WillCascadeOnDelete(false);
 
@@ -94,9 +98,7 @@ namespace CasusStartToBike.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<RouteLocation>()
-                .HasMany(e => e.RouteLocation1)
-                .WithOptional(e => e.RouteLocation2)
-                .HasForeignKey(e => e.LastLocationId);
+                .HasOptional(e => e.routeLocation);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Email)
@@ -107,10 +109,15 @@ namespace CasusStartToBike.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.CycleEvent)
+                .HasMany(e => e.CycleEvent_Created)
                 .WithRequired(e => e.User)
                 .HasForeignKey(e => e.MakerId)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.CycleEvent_Participate)
+                .WithMany(e => e.Deelnemers);
+
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.CycleRoute)
@@ -137,11 +144,12 @@ namespace CasusStartToBike.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.Account)
-                .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
+                .HasKey(e=>e.Id)
+                .HasOptional(s => s.Account)
+                .WithRequired(ad => ad.User);
 
             modelBuilder.Entity<Account>()
+                .HasKey(e => e.UserId)
                 .Property(e => e.FirstName)
                 .IsUnicode(false);
 

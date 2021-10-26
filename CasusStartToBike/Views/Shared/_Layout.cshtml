@@ -3,48 +3,48 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title - Start to Bike</title>
+    @Styles.Render("~/Contents/css")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
+    <Header class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand col-md-3 col-lg-2 bg-dark text-white px-3" href="#">Gotcha</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Events", "Index", "CycleEvents")</li>
-                    <li>@Html.ActionLink("Routes", "Index", "CycleRoutes")</li>
-                    <li>@Html.ActionLink("Route locations", "Index", "RouteLocations")</li>
-                    <li>@Html.ActionLink("Badges", "Index", "Badges")</li>
-                    <li>@Html.ActionLink("Reviews", "Index", "Reviews")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                    <li>@Html.ActionLink("Account", "Index", "Accounts")</li>
-                    <li>@Html.ActionLink("Followers", "Index", "Followers")</li>
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Events", "Index", "CycleEvents", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Routes", "Index", "CycleRoutes", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Badges", "Index", "Badges", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Reviews", "Index", "Reviews", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Users", "Index", "Users", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Account", "Index", "Accounts", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Followers", "Index", "Followers", null, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </Header>
 
-    @Scripts.Render("~/bundles/jquery")
+    <div class="container-fluid pt-5">
+        <div class="row">
+            <main class="col-md-9  ms-sm-auto col-lg-10 px-md-4">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <!-- Modal -->
+    @Html.Partial("_modal")
+
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
+

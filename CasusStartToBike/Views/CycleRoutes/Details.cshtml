@@ -4,63 +4,186 @@
     ViewBag.Title = "Details";
 }
 
+<style>
+    /* Optional: Makes the sample page fill the window. */
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #container {
+        height: 100%;
+        display: flex;
+    }
+
+    #sidebar {
+        flex-basis: 15rem;
+        flex-grow: 1;
+        padding: 1rem;
+        max-width: 30rem;
+        height: 100%;
+        box-sizing: border-box;
+        overflow: auto;
+    }
+
+    #map {
+        flex-basis: 0;
+        flex-grow: 4;
+        height: 100%;
+    }
+
+    #directions-panel {
+        margin-top: 10px;
+    }
+</style>
 <h2>Details</h2>
 
-<div>
-    <h4>CycleRoute</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Badge.BadgeName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Badge.BadgeName)
-        </dd>
+<div class="container-fluid">
+    @Html.Hidden("latLng", "", new { @id = "latLng" })
+    <div class="row">
+        <div class="col-md-3">
+            <div>
+                <h4>CycleRoute</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Badge.BadgeName)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Email)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Badge.BadgeName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RouteName)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RouteName)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.RouteName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RouteName)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RouteType)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RouteType)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.RouteType)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RouteType)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Difficulty)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Difficulty)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Difficulty)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Difficulty)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsPublic)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsPublic)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IsPublic)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsPublic)
-        </dd>
+                </dl>
+            </div>
+        </div>
 
-    </dl>
+        <div class="col-md-9">
+            <div id="container">
+                <div id="map" style="width: 500px; height: 500px"></div>
+                <div id="sidebar">
+                    <div id="directions-panel"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+
+        $('document').ready(function () {
+            var locationlist = '@Html.Raw(ViewBag.Routecollect)';
+            document.getElementById('latLng').value = locationlist;
+        });
+
+    function initMap() {
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+        const directionsService = new google.maps.DirectionsService();
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 7,
+            center: { lat: 41.85, lng: -87.65 },
+            disableDefaultUI: true,
+        });
+
+        directionsRenderer.setMap(map);
+        directionsRenderer.setPanel(document.getElementById("sidebar"));
+
+        const control = document.getElementById("floating-panel");
+
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+
+        const onChangeHandler = function () {
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+        };
+        window.addEventListener("load", onChangeHandler);
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        const waypts = [];
+
+        var locationlistA = document.getElementById("latLng").value;
+        var List = [] = locationlistA.split("}{");
+        for (var i = 0; i < List.length; i++) {
+
+            if (i != 0) {
+                if (i == List.length - 1) {
+                    List[i] = "{" + List[i];
+                } else {
+                    List[i] = "{" + List[i] + "}";
+                }
+
+            } else {
+                List[i] = List[i] + "}"
+            }
+        }
+        for (let i = 0; i < List.length; i++) {
+            if (List[i] != List[0] && List[i] != List[List.length - 1]) {
+                waypts.push({
+                    location: JSON.parse(List[i]),
+                    stopover: true,
+                });
+            }
+        }
+
+        directionsService
+            .route({
+                origin: JSON.parse(List[0]),
+                destination: JSON.parse(List[List.length - 1]),
+                waypoints: waypts,
+                optimizeWaypoints: true,
+                travelMode: google.maps.TravelMode.DRIVING,
+            })
+            .then((response) => {
+                directionsRenderer.setDirections(response);
+            })
+            .catch((e) => window.alert("Directions request failed due to " + status));
+    }
+</script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQEASASbDlDyC3C52lh1xOQrjSaLmRS_o&callback=initMap&v=weekly" async defer>
+
+    </script>
+
+}

@@ -1,17 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace CasusStartToBike.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+
 
     [Table("Account")]
     public partial class Account
     {
-        [Key]
+        [Key, ForeignKey("User")]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UserId { get; set; }
 
         [Key]
@@ -37,7 +42,7 @@ namespace CasusStartToBike.Models
         public string Residence { get; set; }
 
         public int? Distance { get; set; }
-
+        [Required]
         public virtual User User { get; set; }
     }
 }
