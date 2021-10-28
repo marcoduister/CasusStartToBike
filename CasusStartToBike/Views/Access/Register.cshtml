@@ -1,0 +1,139 @@
+﻿
+@model CasusStartToBike.ViewModels.Access.RegisterViewModel
+
+@{ 
+    Viewbag.Title = "Registreren"; 
+ }
+
+
+<style type="text/css" media="screen">
+    body {
+        color: #000;
+        overflow-x: hidden;
+        height: 100%;
+        background-color: white;
+        background-repeat: no-repeat
+    }
+
+    .border-line {
+        border-right: 1px solid #EEEEEE
+    }
+
+    .line {
+        height: 1px;
+        width: 45%;
+        background-color: #E0E0E0;
+        margin-top: 10px
+    }
+
+    a {
+        color: inherit;
+        cursor: pointer
+    }
+
+    .bg-blue {
+        color: #fff;
+        background-color: #1A237E
+    }
+</style>
+
+
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="card card0 border-0">
+        <div class="row d-flex">
+            <div class="col-lg-12">
+                <div class="card2 bg-light card border-0 px-4 py-5">
+
+
+                    <h3>Registreren</h3>
+                    @using (Html.BeginForm("Register", "Access", FormMethod.Post))
+                    {
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="mb-1">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label class="form-label">Voornaam</label>
+                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col">
+                                                <label class="form-label">Achternaam</label>
+                                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label class="form-label">Alias</label>
+                                                @Html.TextBoxFor(m => m.Alias, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Alias, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col">
+                                                <label class="form-label">Groep</label>
+                                                @Html.TextBoxFor(m => m.Groep, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Groep, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="mb-1">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="form-label">Geboortedatum</label>
+
+                                            @Html.TextBoxFor(m => m.Birthdate, new { @class = "form-control", @Type = "Date", @id = "start", @name = "trip-start" })
+                                            @Html.ValidationMessageFor(m => m.Birthdate, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+
+                                <div class="mb-1">
+                                    <label class="form-label">Email-adres</label>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="mb-1">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="form-label">Wachtwoord</label>
+                                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @type = "password" })
+                                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label">Herhaal Wachtwoord</label>
+                                            @Html.TextBoxFor(m => m.PasswordCheck, new { @class = "form-control", @type = "password" })
+                                            @Html.ValidationMessageFor(m => m.PasswordCheck, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-1">
+                                    <div class="row">
+                                        <div class="col">
+                                            <br />
+                                            <button type="submit" class="btn btn-primary form-control">Aanmaken</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>}
+               </div>
+           </div>
+
+       </div>
+
+        <div class="bg-blue py-4">
+            <div class="row px-3">
+                <p class="ml-auto mb-0 text-sm text-center">Kan u niet inloggen of bent u uw wachtwoord vergeten, klik dan <a href="/Access/PasswordReset">hier</a>.</p>
+
+            </div>
+        </div>
+    </div>
+</div>
