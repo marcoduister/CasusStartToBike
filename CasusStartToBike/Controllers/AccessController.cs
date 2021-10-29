@@ -6,13 +6,14 @@ using System.Web.Mvc;
 using System.Web.Security;
 using CasusStartToBike.Helper;
 using CasusStartToBike.Models;
+using CasusStartToBike.Data;
 using CasusStartToBike.ViewModels.Access;
 
 namespace CasusStartToBike.Controllers
 {
     public class AccessController : Controller
     {
-        private CasusStartToBike.Data.STBDContext DBContext = new CasusStartToBike.Data.STBDContext();
+        private STBDContext DBContext = new Data.STBDContext();
 
 
         // GET: Access/Login
@@ -32,7 +33,7 @@ namespace CasusStartToBike.Controllers
         // POST: Access/Login
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(CasusStartToBike.ViewModels.Access.LoginViewModel user)
+        public ActionResult Login(LoginViewModel user)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +90,7 @@ namespace CasusStartToBike.Controllers
                         Account = AddAccount
                     };
 
-                    if (Register(Adduser))
+                    if (ValidRegister(Adduser))
                     {
                         return RedirectToAction("Login", "Access");
                     }
@@ -154,7 +155,7 @@ namespace CasusStartToBike.Controllers
             return ReturnUser;
         }
 
-        public bool Register(User Adduser)
+        public bool ValidRegister(User Adduser)
         {
             if (!DBContext.User.Any(e => e.Email == Adduser.Email))
             {

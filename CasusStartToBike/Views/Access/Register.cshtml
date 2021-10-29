@@ -2,7 +2,7 @@
 @model CasusStartToBike.ViewModels.Access.RegisterViewModel
 
 @{ 
-    Viewbag.Title = "Registreren"; 
+    ViewBag.Title = "Registreren"; 
  }
 
 
@@ -62,20 +62,6 @@
                                                 <label class="form-label">Achternaam</label>
                                                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-1">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label class="form-label">Alias</label>
-                                                @Html.TextBoxFor(m => m.Alias, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(m => m.Alias, "", new { @class = "text-danger" })
-                                            </div>
-                                            <div class="col">
-                                                <label class="form-label">Groep</label>
-                                                @Html.TextBoxFor(m => m.Groep, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(m => m.Groep, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>

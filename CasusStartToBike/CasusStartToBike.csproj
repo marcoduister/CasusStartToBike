@@ -261,6 +261,8 @@
     <Content Include="Assets\Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Assets\Scripts\bootstrap.bundle.js.map" />
     <Content Include="Views\Access\Register.cshtml" />
+    <Content Include="Views\Access\Login.cshtml" />
+    <Content Include="Views\Access\PasswordReset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

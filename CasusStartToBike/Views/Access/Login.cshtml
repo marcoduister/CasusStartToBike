@@ -1,0 +1,90 @@
+﻿@model CasusStartToBike.ViewModels.Access.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<style type="text/css" media="screen">
+    body {
+        color: #000;
+        overflow-x: hidden;
+        height: 100%;
+        background-color: white;
+        background-repeat: no-repeat
+    }
+
+    .border-line {
+        border-right: 1px solid #EEEEEE
+    }
+
+    .line {
+        height: 1px;
+        width: 45%;
+        background-color: #E0E0E0;
+        margin-top: 10px
+    }
+
+    a {
+        color: inherit;
+        cursor: pointer
+    }
+    .container {
+        height: 100%;
+    }
+
+    .container .btn-holder {
+        position: relative;
+        top: 70%;
+    }
+
+    .bg-blue {
+        color: #fff;
+        background-color: #1A237E
+
+    }
+</style>
+
+
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="card card0 border-0">
+        <div class="row d-flex bg-light">
+            <div class="col-lg-6 ">
+                <div class="card2 card bg-light border-0 px-4 py-5">
+                    <h3>Login</h3>
+                    @using (Html.BeginForm("Login", "Access", FormMethod.Post))
+                    {
+                        <div class="form-floating mb-3">
+
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email Adress", @id = "floatingEmail" })
+                            <label for="floatingEmail">Email-adres</label>
+
+                        </div>
+                        <div class="form-floating mb-3">
+
+                            @Html.TextBoxFor(m => m.Password, new { @class = " form-control ", @id = "floatingPassword", @placeholder = "Wachtwoord", @type = "password" })
+                            <label for="floatingPassword">Wachtwoord</label>
+                        </div>
+
+                        //@Html.ValidationMessageFor(model => model., "Invalid message")
+
+                        <button type="submit" class="btn btn-primary form-control">Login</button>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6" >
+                    <div class="container card2 card bg-light border-0 px-4 py-5">
+                        <div class="btn-holder">
+                            <p style="text-align: center;"><strong>Heeft u nog geen account, maakt dan vandaag nog een aan en speel mee!</strong></p>
+                            @Html.ActionLink("Registreren", "Register", "Access", null, new { @class = "btn btn-primary form-control" })
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div class=" row d-flex bg-blue py-4">
+            <div class="row px-3">
+                <a href="~/Access/PasswordReset" class="ml-auto mb-0 text-sm text-center">Kan u niet inloggen of bent u uw wachtwoord vergeten, klik dan hier.</a>
+            </div>
+        </div>
+    </div>
+</div>
