@@ -158,6 +158,10 @@
     <Compile Include="Migrations\202110261225511_InitialV1.3.Designer.cs">
       <DependentUpon>202110261225511_InitialV1.3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110300927282_Role1.0.cs" />
+    <Compile Include="Migrations\202110300927282_Role1.0.Designer.cs">
+      <DependentUpon>202110300927282_Role1.0.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Badge.cs" />
@@ -305,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110261225511_InitialV1.3.resx">
       <DependentUpon>202110261225511_InitialV1.3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110300927282_Role1.0.resx">
+      <DependentUpon>202110300927282_Role1.0.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
