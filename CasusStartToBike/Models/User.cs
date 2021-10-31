@@ -1,10 +1,8 @@
 namespace CasusStartToBike.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("User")]
     public partial class User
@@ -33,8 +31,8 @@ namespace CasusStartToBike.Models
 
         public int IsActive { get; set; }
 
-        public long Role { get; set; }    
-        
+        public long Role { get; set; }
+
         [Required]
         public virtual Account Account { get; set; }
 

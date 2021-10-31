@@ -1,8 +1,7 @@
 namespace CasusStartToBike.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class InitialV12 : DbMigration
     {
         public override void Up()
@@ -14,7 +13,7 @@ namespace CasusStartToBike.Migrations
             CreateIndex("dbo.CycleEvent", "BadgeId");
             CreateIndex("dbo.CycleRoute", "BadgeId");
         }
-        
+
         public override void Down()
         {
             DropIndex("dbo.CycleRoute", new[] { "BadgeId" });
