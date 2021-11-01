@@ -46,7 +46,7 @@ namespace zuydGotcha.Controllers
 
         // GET: Users/Edit/1
         [HttpGet]
-        [CheckAuth(Roles = "Admin,Player,Gamemaster")]
+        [CheckAuth(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             User user = GetUserById(id);
@@ -64,7 +64,7 @@ namespace zuydGotcha.Controllers
 
         // POST: Users/Edit/5
         [HttpPost]
-        [CheckAuth(Roles = "Admin,Player,Gamemaster")]
+        [CheckAuth(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User Model)
         {
