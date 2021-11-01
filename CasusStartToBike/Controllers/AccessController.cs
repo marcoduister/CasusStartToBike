@@ -39,7 +39,7 @@ namespace CasusStartToBike.Controllers
             {
                 if (validateLogin(user.Email, user.Password))
                 {
-                    User currentUser = GetUserInfo(user.Email, user.Password);
+                    User currentUser = DBContext.User.First(e => e.Email == user.Email && e.Password == user.Password);
                     // Clear any lingering authencation data    
                     FormsAuthentication.SignOut();
 
@@ -147,12 +147,6 @@ namespace CasusStartToBike.Controllers
             }
 
             return false;
-        }
-
-        public User GetUserInfo(string Email, string Password)
-        {
-            User ReturnUser = DBContext.User.First(e => e.Email == Email && e.Password == Password);
-            return ReturnUser;
         }
 
         public bool ValidRegister(User Adduser)
