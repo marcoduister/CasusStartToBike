@@ -6,8 +6,27 @@
 
 <h2>Index</h2>
 
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @{
+        bool reviewExist = false;
+
+        var currentUserID = Session["UserID"] as string;
+        if (currentUserID != null)
+        {
+            reviewExist = Model.Any(e => e.MakerId.ToString() == currentUserID);
+        }
+
+        if (reviewExist)
+        {
+            @Html.ActionLink("Create New", "Create", new { @class = "btn btn-success disabled" })
+        }
+        else
+        {
+            @Html.ActionLink("Create New", "Create", new { @class = "btn btn-success" })
+        }
+
+    }
 </p>
 <table class="table">
     <tr>
@@ -36,7 +55,7 @@
         {
 
 
-            if (userID == item.Id.ToString())
+            if (userID == item.MakerId.ToString())
             {
 
 
@@ -71,7 +90,7 @@
         var userID = Session["UserID"] as string;
         if (userID != null)
         {
-            if (userID == item.Id.ToString())
+            if (userID == item.MakerId.ToString())
             {
                 continue;
             }
