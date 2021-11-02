@@ -1,0 +1,32 @@
+﻿@model CasusStartToBike.Models.User
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+<hr />
+
+
+@Html.AntiForgeryToken()
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="feature col">
+        <p>@Html.DisplayFor(model => model.Account.FirstName)</p>
+    </div>
+    <div class="feature col">
+        <dt>
+            Follows
+        </dt>
+        <dd>
+            <p>@Html.DisplayFor(model => model.Follower)</p>
+        </dd>
+    </div>
+    <div class="feature col">
+        <dt>
+            Followers
+        </dt>
+        <dd>
+            <p>@Html.DisplayFor(model => model.Follower1)</p>
+        </dd>
+    </div>
+</div>

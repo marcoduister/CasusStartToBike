@@ -39,8 +39,8 @@ namespace zuydGotcha.Controllers
         [CheckAuth(Roles = "Admin")]
         public ActionResult Details(int id)
         {
-
-            return View();
+            var Model = db.User.Find(id);
+            return View(Model);
         }
 
 
@@ -172,5 +172,13 @@ namespace zuydGotcha.Controllers
         //        db.SaveChanges();
         //    }
         //}
+
+        // >>>>> PROFILE <<<<<
+        [CheckAuth(Roles = "User,Admin")]
+        public ActionResult Profile(int id)
+        {
+            var Model = db.User.Find(id);
+            return View(Model);
+        }
     }
 }

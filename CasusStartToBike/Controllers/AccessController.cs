@@ -130,7 +130,7 @@ namespace CasusStartToBike.Controllers
         }
 
         [HttpGet]
-        [CheckAuth(Roles = "Player,Gamemaster,Admin")]
+        [CheckAuth(Roles = "User,Admin")]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
