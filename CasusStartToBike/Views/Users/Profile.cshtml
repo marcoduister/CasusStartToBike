@@ -29,4 +29,21 @@
             <p>@Html.DisplayFor(model => model.Follower1)</p>
         </dd>
     </div>
+    <div>
+        @Html.ActionLink("Follow", "Profile", "Users", new { id = Convert.ToInt32(Session["UserID"].ToString()) })
+    @*@if (Model.Id == Session.["User.ID"])
+    {
+
+    }
+    else
+    {
+        <button type="button" onclick="alert('Followed!')">Follow</button>
+    }*@
+
+    </div>
+    <br />
+    <div>
+        
+    </div>
+    
 </div>

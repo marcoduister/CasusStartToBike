@@ -46,7 +46,7 @@ namespace CasusStartToBike.Controllers
                     // Write the authentication cookie    
                     FormsAuthentication.SetAuthCookie(currentUser.Email.ToString(), false);
 
-                    Session["UserID"] = currentUser.Id.ToString();
+                    Session["UserID"] = currentUser.Id;
                     Session["UserEmail"] = currentUser.Email.ToString();
                     Session["UserName"] = currentUser.Account.FirstName + " " + currentUser.Account.LastName.ToString();
                     Session["UserRole"] = currentUser.User_Role.ToString();
