@@ -20,13 +20,17 @@
                     <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Events", "Index", "CycleEvents", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Routes", "Index", "CycleRoutes", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Badges", "Index", "Badges", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Reviews", "Index", "Reviews", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Users", "Index", "Users", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Account", "Index", "Accounts", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Followers", "Index", "Followers", null, new { @class = "nav-link" })</li>
+                    @if (Session["UserID"] == null) {}
+                    else
+                    {
+                        <li class="nav-item">@Html.ActionLink("Events", "Index", "CycleEvents", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Routes", "Index", "CycleRoutes", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Badges", "Index", "Badges", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Reviews", "Index", "Reviews", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Users", "Index", "Users", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Account", "Index", "Accounts", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Followers", "Index", "Followers", null, new { @class = "nav-link" })</li>
+                    }
                 </ul>
                 
                 @if (Session["UserID"] == null)
