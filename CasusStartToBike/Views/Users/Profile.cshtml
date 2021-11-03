@@ -28,5 +28,13 @@
         <dd>
             <p>@Html.DisplayFor(model => model.Follower1)</p>
         </dd>
+        @if (Model.Id.ToString() == Session["UserID"].ToString())
+        {
+            <p>Zelfde!</p>
+        }
+        else
+        {
+            <p>Niet zelfde!</p>
+        }
     </div>
 </div>
