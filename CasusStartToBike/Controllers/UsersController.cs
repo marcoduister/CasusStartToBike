@@ -18,11 +18,17 @@ namespace zuydGotcha.Controllers
 
         // GET: Users
         [HttpGet]
-        [CheckAuth(Roles = "Admin")]
+        [CheckAuth(Roles = "User,Admin")]
         public ActionResult Index()
         {
-            var Model = GetAllUsers();
-
+            var Model = db.User.ToList();
+            foreach (User user in Model.ToList())
+            {
+                if (user.Id == Convert.ToInt32(Session["UserID"]))
+                {
+                    Model.Remove(user);
+                }
+            }
             return View(Model);
         }
 
@@ -118,20 +124,6 @@ namespace zuydGotcha.Controllers
 
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-        public IEnumerable<User> GetAllUsers()
-        {
-            if (db.User.Any())
-            {
-                IEnumerable<User> UserList = db.User.Where(e => e.Id != 1).ToList();
-                return UserList;
-            }
-            else
-            {
-                List<User> Emty = new List<User>();
-                return Emty;
-            }
-        }
-
         public User GetUserById(int Id)
         {
             if (db.User.Any(e => e.Id == Id))
@@ -175,7 +167,7 @@ namespace zuydGotcha.Controllers
 
         // >>>>> PROFILE <<<<<
         [CheckAuth(Roles = "User,Admin")]
-        public ActionResult Profile(int id)
+        public ActionResult Profile(int? id)
         {
             var Model = db.User.Find(id);
             return View(Model);
