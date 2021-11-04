@@ -13,14 +13,7 @@
 
 
 
-@*<div class="nav-scroller">
-    <nav class="nav nav-underline" aria-label="Secondary navigation">
 
-        <a class="nav-link" href="#">Events</a>
-        <a class="nav-link" href="#">Routes</a>
-        <a class="nav-link" href="#">Badges</a>
-    </nav>
-</div>*@
 <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
     <div class="feature col">
         <p>@Html.DisplayFor(model => model.Account.FirstName)</p>
@@ -61,37 +54,86 @@
 </div>
 
 
-<div>
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-Public-tab" data-bs-toggle="pill" data-bs-target="#pills-Public" type="button" role="tab" aria-controls="pills-Public" aria-selected="true">Openbaar</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-Own-tab" data-bs-toggle="pill" data-bs-target="#pills-Own" type="button" role="tab" aria-controls="pills-Own" aria-selected="false">Mijn Spellen</button>
-        </li>
-    </ul>
-    <!--<div class="tab">
-        <button class="tabcontent" onclick="openCity(event, 'Events">Events</button>
-        <button class="tabcontent" onclick="openCity(event, 'Routes')">Routes</button>
-        <button class="tabcontent" onclick="openCity(event, 'Badges')">Badges</button>
-    </div>-->
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-Public-tab" data-bs-toggle="pill" data-bs-target="#pills-Public" type="button" role="tab" aria-controls="pills-Public" aria-selected="true">Evenementen</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-Own-tab" data-bs-toggle="pill" data-bs-target="#pills-Own" type="button" role="tab" aria-controls="pills-Own" aria-selected="false">Routes</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-Show-tab" data-bs-toggle="pill" data-bs-target="#pills-Show" type="button" role="tab" aria-controls="pills-Show" aria-selected="false">Badges</button>
+    </li>
+</ul>
 
-    <!-- Tab content -->
-    <!--<div id="Events" class="tabcontent">
-        <h3>Events</h3>
-        <p>Hier komen events.</p>
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-Public" role="tabpanel" aria-labelledby="pills-Public-tab">
+
+        <table class="table">
+            <tr>
+                <th>
+                    Evenement Naam
+                </th>
+                <th>
+                    Evenement Start
+                </th>
+                <th>
+                    Evenement Einde
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.CycleEvent_Created)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventEnd)
+                    </td>
+
+                </tr>
+            }
+        </table>
     </div>
+    <div class="tab-pane fade" id="pills-Own" role="tabpanel" aria-labelledby="pills-Own-tab">
+        <table class="table">
+            <tr>
+                <th>
+                    Route Naam
+                </th>
+                <th>
+                    Route Type
+                </th>
+                <th>
+                    Moeilijkheidsgraad
+                </th>
 
-    <div id="Routes" class="tabcontent">
-        <h3>Routes</h3>
-        <p>Hier komen routes.</p>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.CycleRoute)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RouteName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RouteType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Difficulty)
+                    </td>
+
+                </tr>
+            }
+        </table>
     </div>
-
-    <div id="Badges" class="tabcontent">
-        <h3>Badges</h3>
-        <p>BADGES KOMEN HIIIIIIIIIIIIIIIIIIIIIIIIIIIIEEEEEEEER.</p>
-    </div>-->
-
-
 
 </div>
+
