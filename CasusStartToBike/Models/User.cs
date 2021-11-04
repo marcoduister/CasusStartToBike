@@ -33,7 +33,7 @@ namespace CasusStartToBike.Models
 
         public int IsActive { get; set; }
 
-        public CasusStartToBike.Models.Enums.Rollen User_Role { get; set; }    
+        public CasusStartToBike.Models.Enums.Rollen Role { get; set; }    
         
         [Required]
         public virtual Account Account { get; set; }

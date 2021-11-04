@@ -33,6 +33,14 @@
         <dd>
             <p>@Html.DisplayFor(model => model.Follower1)</p>
         </dd>
+        @if (Model.Id.ToString() == Session["UserID"].ToString())
+        {
+            <p>Zelfde!</p>
+        }
+        else
+        {
+            <p>Niet zelfde!</p>
+        }
     </div>
     <div>
         @Html.ActionLink("Follow", "Profile", "Users", new { id = Convert.ToInt32(Session["UserID"].ToString()) })

@@ -49,7 +49,7 @@ namespace CasusStartToBike.Controllers
                     Session["UserID"] = currentUser.Id;
                     Session["UserEmail"] = currentUser.Email.ToString();
                     Session["UserName"] = currentUser.Account.FirstName + " " + currentUser.Account.LastName.ToString();
-                    Session["UserRole"] = currentUser.User_Role.ToString();
+                    Session["UserRole"] = currentUser.Role.ToString();
 
 
                     return RedirectToAction("Index", "Home");
@@ -86,7 +86,7 @@ namespace CasusStartToBike.Controllers
                     {
                         Email = NewUser.Email,
                         Password = NewUser.Password,
-                        User_Role = Enums.Rollen.User,
+                        Role = Enums.Rollen.User,
                         Account = AddAccount
                     };
 
