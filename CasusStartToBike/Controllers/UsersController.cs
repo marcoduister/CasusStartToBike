@@ -10,7 +10,7 @@ using CasusStartToBike.Models;
 using CasusStartToBike.Data;
 using System.Data.Entity.Infrastructure;
 
-namespace zuydGotcha.Controllers
+namespace CasusStartToBike.Controllers
 {
     public class UsersController : Controller
     {
@@ -173,22 +173,27 @@ namespace zuydGotcha.Controllers
             return View(Model);
         }
 
-        public ActionResult FollowUser(int id)
+       
+
+
+        public ActionResult FollowUser(int? id)
         {
             DateTime date = DateTime.Today;
+            var FId = Convert.ToInt32(id);
 
             Follower follower = new Follower()
             {
                 UserId = Convert.ToInt32(Session["UserId"]),
-                FollowerId = id,
+                FollowerId = FId,
                 Date = BitConverter.GetBytes(date.Ticks)
             };
             db.Follower.Add(follower);
             db.SaveChanges();
 
 
-            var Model = db.User.Find(id);
-            return View(Model);
+
+            return RedirectToAction("Index");
+
 
 
         }

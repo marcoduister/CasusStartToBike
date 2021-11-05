@@ -23,6 +23,7 @@
             Follows
         </dt>
         <dd>
+
             <p>@Html.DisplayFor(model => model.Follower)</p>
         </dd>
     </div>
@@ -31,34 +32,21 @@
             Followers
         </dt>
         <dd>
-            <p>@Html.DisplayFor(model => model.Follower1)</p>
+            <p>@Html.DisplayFor(model => Convert.ToInt32(model.Follower1))</p>
         </dd>
-        @if (Model.Id.ToString() == Session["UserID"].ToString())
+        
+    </div>
+    <div>
+        @if (Model.Id == Convert.ToInt32(Session["UserID"]))
         {
-            <p>Zelfde!</p>
+
         }
         else
         {
-            <p>Niet zelfde!</p>
+            @Html.ActionLink("Volg", "FollowUser", new { id = Model.Id })
         }
     </div>
-    <div>
-        
-        @if (Model.Id == Convert.ToInt32(Session["User.ID"]))
-            {
-
-            }
-            else
-            {
-                @Html.ActionLink("Volg", "FollowUser", "Users", new{ id = Model.Id })
-                
-            }
-
-    </div>
-    <br />
-    <div>
-
-    </div>
+   
 
 </div>
 
