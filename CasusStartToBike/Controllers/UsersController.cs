@@ -172,5 +172,25 @@ namespace zuydGotcha.Controllers
             var Model = db.User.Find(id);
             return View(Model);
         }
+
+        public ActionResult FollowUser(int id)
+        {
+            DateTime date = DateTime.Today;
+
+            Follower follower = new Follower()
+            {
+                UserId = Convert.ToInt32(Session["UserId"]),
+                FollowerId = id,
+                Date = BitConverter.GetBytes(date.Ticks)
+            };
+            db.Follower.Add(follower);
+            db.SaveChanges();
+
+
+            var Model = db.User.Find(id);
+            return View(Model);
+
+
+        }
     }
 }
