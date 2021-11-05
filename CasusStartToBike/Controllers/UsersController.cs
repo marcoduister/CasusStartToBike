@@ -1,128 +1,176 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using CasusStartToBike.Data;
+using CasusStartToBike.Helper;
 using CasusStartToBike.Models;
+using CasusStartToBike.Data;
+using System.Data.Entity.Infrastructure;
 
-namespace CasusStartToBike.Controllers
+namespace zuydGotcha.Controllers
 {
     public class UsersController : Controller
     {
         private STBDContext db = new STBDContext();
 
         // GET: Users
+        [HttpGet]
+        [CheckAuth(Roles = "User,Admin")]
         public ActionResult Index()
         {
-            return View(db.User.ToList());
+            var Model = db.User.ToList();
+            foreach (User user in Model.ToList())
+            {
+                if (user.Id == Convert.ToInt32(Session["UserID"]))
+                {
+                    Model.Remove(user);
+                }
+            }
+            return View(Model);
         }
 
-        // GET: Users/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.User.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // GET: Users/Create
-        public ActionResult Create()
+        // GET: Users/Accept/1
+        [HttpGet]
+        [CheckAuth(Roles = "Admin")]
+        public ActionResult Accept(int id)
         {
             return View();
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Email,Password,IsActive,Role")] User user)
+        // GET: Users/Details/1
+        [HttpGet]
+        [CheckAuth(Roles = "Admin")]
+        public ActionResult Details(int id)
         {
-            if (ModelState.IsValid)
+            var Model = db.User.Find(id);
+            return View(Model);
+        }
+
+
+        // GET: Users/Edit/1
+        [HttpGet]
+        [CheckAuth(Roles = "Admin")]
+        public ActionResult Edit(int id)
+        {
+            User user = GetUserById(id);
+
+            if (user != null)
             {
-                db.User.Add(user);
-                db.SaveChanges();
+                return View(user);
+            }
+            else
+            {
                 return RedirectToAction("Index");
             }
 
-            return View(user);
-        }
-
-        // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.User.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
         }
 
         // POST: Users/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [CheckAuth(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,Password,IsActive,Role")] User user)
+        public ActionResult Edit(User Model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (EditUser(Model))
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            return View(user);
+            return View();
         }
 
+        [HttpPost]
+        //public void SaveProfileImage(FormCollection formCollection)
+        //{
+        //    if (Request.Files.Count != 0)
+        //    {
+        //        byte[] Profileimage = null;
+        //        int Id = int.Parse(formCollection["Id"]);
+        //        using (var Reader = new BinaryReader(Request.Files[0].InputStream))
+        //        {
+        //            Profileimage = Reader.ReadBytes(Request.Files[0].ContentLength);
+        //        }
+        //        if (Profileimage != null)
+        //        {
+        //            UploadProfileImage(Profileimage, Id);
+        //        }
+        //    }
+        //}
+
         // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpGet]
+        [CheckAuth(Roles = "Admin")]
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.User.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+            return View();
         }
 
         // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        [CheckAuth(Roles = "Admin")]
+        public ActionResult Delete(int id, FormCollection collection)
         {
-            User user = db.User.Find(id);
-            db.User.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
-        protected override void Dispose(bool disposing)
+        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+        public User GetUserById(int Id)
         {
-            if (disposing)
+            if (db.User.Any(e => e.Id == Id))
             {
-                db.Dispose();
+                User User = db.User.First(e => e.Id == Id);
+
+                return User;
             }
-            base.Dispose(disposing);
+            else
+            {
+                return null;
+            }
+
+        }
+
+        public bool EditUser(User Model)
+        {
+            if (!db.User.Any(e => e.Email == Model.Email))
+            {
+
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //public void UploadProfileImage(byte[] _profileimage, int Id)
+        //{
+        //    if (db.Account.Any(e => e.UserId == Id))
+        //    {
+        //        Account updateprofile = db.Account.First(e => e.UserId == Id);
+
+        //        updateprofile.ProfileImage = _profileimage;
+
+        //        db.SaveChanges();
+        //    }
+        //}
+
+        // >>>>> PROFILE <<<<<
+        [CheckAuth(Roles = "User,Admin")]
+        public ActionResult Profile(int? id)
+        {
+            var Model = db.User.Find(id);
+            return View(Model);
         }
     }
 }

@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\BadgesController.cs" />
     <Compile Include="Controllers\CycleEventsController.cs" />
@@ -139,6 +140,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CheckAge.cs" />
+    <Compile Include="Helper\CheckAuth.cs" />
     <Compile Include="Migrations\202110252333143_InitialV1.0.cs" />
     <Compile Include="Migrations\202110252333143_InitialV1.0.Designer.cs">
       <DependentUpon>202110252333143_InitialV1.0.cs</DependentUpon>
@@ -155,17 +158,28 @@
     <Compile Include="Migrations\202110261225511_InitialV1.3.Designer.cs">
       <DependentUpon>202110261225511_InitialV1.3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110300927282_Role1.0.cs" />
+    <Compile Include="Migrations\202110300927282_Role1.0.Designer.cs">
+      <DependentUpon>202110300927282_Role1.0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111041447055_UI1.0.cs" />
+    <Compile Include="Migrations\202111041447055_UI1.0.Designer.cs">
+      <DependentUpon>202111041447055_UI1.0.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Badge.cs" />
     <Compile Include="Models\CycleEvent.cs" />
     <Compile Include="Models\CycleRoute.cs" />
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Follower.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Data\STBDContext.cs" />
     <Compile Include="Models\RouteLocation.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Access\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Access\RegisterViewModel.cs" />
     <Compile Include="ViewModels\CycleRouteViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +268,10 @@
     <Content Include="Assets\Scripts\bootstrap.esm.js.map" />
     <Content Include="Assets\Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Assets\Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Views\Access\Register.cshtml" />
+    <Content Include="Views\Access\Login.cshtml" />
+    <Content Include="Views\Access\PasswordReset.cshtml" />
+    <Content Include="Views\Users\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -296,6 +314,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110261225511_InitialV1.3.resx">
       <DependentUpon>202110261225511_InitialV1.3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110300927282_Role1.0.resx">
+      <DependentUpon>202110300927282_Role1.0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111041447055_UI1.0.resx">
+      <DependentUpon>202111041447055_UI1.0.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -17,17 +17,49 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav">
-                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Hoofdpagina", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Over", "About", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Events", "Index", "CycleEvents", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Routes", "Index", "CycleRoutes", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Badges", "Index", "Badges", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Reviews", "Index", "Reviews", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Users", "Index", "Users", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Account", "Index", "Accounts", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Followers", "Index", "Followers", null, new { @class = "nav-link" })</li>
+                    @if (Session["UserID"] == null) {}
+                    else
+                    {
+                        <li class="nav-item">@Html.ActionLink("Evenementen", "Index", "CycleEvents", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Routes", "Index", "CycleRoutes", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Badges", "Index", "Badges", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Reviews", "Index", "Reviews", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Gebruikers", "Index", "Users", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Account", "Index", "Accounts", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Volgers", "Index", "Followers", null, new { @class = "nav-link" })</li>
+                    }
                 </ul>
+                
+                @if (Session["UserID"] == null)
+                    {
+                        <div class="nav-item">
+                            <div class="text-end">
+                                @Html.ActionLink("Login", "Login", "Access", null, new { @class = "btn btn-outline-light me-2" })
+                                @Html.ActionLink("Registreren", "Register", "Access", null, new { @class = "btn btn-warning" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle">
+
+                                </i>
+                            </a>
+                            <ul class="dropdown-menu " aria-labelledby="Account">
+                                <li>
+                                    @Html.ActionLink("Logout", "Logout", "Access", null, new { @class = "dropdown-item" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Profiel", "Profile", "Users", new { id = Convert.ToInt32(Session["UserID"].ToString()) }, new { @class = "dropdown-item" })
+                                </li>
+                            </ul>
+                        </div>
+                    }
             </div>
         </div>
     </Header>
