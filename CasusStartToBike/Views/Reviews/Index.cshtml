@@ -17,11 +17,7 @@
             reviewExist = Model.Any(e => e.MakerId.ToString() == currentUserID);
         }
 
-        if (reviewExist)
-        {
-            @Html.ActionLink("Create New", "Create", new { @class = "btn btn-success disabled" })
-        }
-        else
+        if (!reviewExist || Model.ToList().Count != 0)
         {
             @Html.ActionLink("Create New", "Create", new { @class = "btn btn-success" })
         }
