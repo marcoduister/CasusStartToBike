@@ -51,6 +51,10 @@ namespace CasusStartToBike.Data
             modelBuilder.Entity<CycleEvent>()
                 .HasMany(e => e.Deelnemers)
                 .WithMany(e => e.CycleEvent_Participate);
+            
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Badges)
+                .WithMany(e => e.User);
 
             modelBuilder.Entity<CycleEvent>()
                 .HasMany(e => e.Review)

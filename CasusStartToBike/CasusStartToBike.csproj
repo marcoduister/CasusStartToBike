@@ -166,6 +166,10 @@
     <Compile Include="Migrations\202111041447055_UI1.0.Designer.cs">
       <DependentUpon>202111041447055_UI1.0.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111061404167_badgjes.cs" />
+    <Compile Include="Migrations\202111061404167_badgjes.Designer.cs">
+      <DependentUpon>202111061404167_badgjes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Badge.cs" />
@@ -320,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111041447055_UI1.0.resx">
       <DependentUpon>202111041447055_UI1.0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111061404167_badgjes.resx">
+      <DependentUpon>202111061404167_badgjes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
