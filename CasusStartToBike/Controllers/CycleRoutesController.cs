@@ -64,10 +64,18 @@ namespace CasusStartToBike.Controllers
                 Badge badge = db.Badge.Find(cycleRoute.BadgeId);
                 if (badge != null)
                 {
-                    //if (db.User.Any(e => e.bad == userid.))
-                    //{
+                    var old = currentUser.Account.Distance;
+                    var total = currentUser.Account.Distance += totaal;
 
-                    //}
+                    List<Badge> badges = db.Badge.ToList();
+                    foreach (var b in badges)
+                    {
+                        // If distance is between the old distance and the new, add the badge to the list. This prevent duplicates in the list.
+                        if (b.BadgeLimit > old && b.BadgeLimit < totaal)
+                        {
+                            currentUser.Badges.Add(b);
+                        }
+                    }
                 }
 
                 currentUser.Account.Distance += totaal;

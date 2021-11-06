@@ -24,6 +24,9 @@ namespace CasusStartToBike.Models
         [StringLength(255)]
         public string BadgeImage { get; set; }
 
+        [Required]
+        public int BadgeLimit { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CycleEvent> CycleEvent { get; set; }
 
@@ -32,5 +35,6 @@ namespace CasusStartToBike.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User { get; set; }
+
     }
 }
