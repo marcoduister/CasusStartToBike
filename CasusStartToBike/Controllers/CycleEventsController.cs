@@ -49,7 +49,8 @@ namespace CasusStartToBike.Controllers
         {
             if (ModelState.IsValid)
             {
-                cycleEvent.MakerId = 1;
+                int userid = int.Parse(Session["UserID"].ToString());
+                cycleEvent.MakerId = userid;
                 db.CycleEvent.Add(cycleEvent);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -84,7 +85,8 @@ namespace CasusStartToBike.Controllers
         {
             if (ModelState.IsValid)
             {
-                cycleEvent.MakerId = 1;
+                int userid = int.Parse(Session["UserID"].ToString());
+                cycleEvent.MakerId = userid;
                 db.Entry(cycleEvent).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -102,10 +104,11 @@ namespace CasusStartToBike.Controllers
                 {
                     try
                     {
+                        int userid = int.Parse(Session["UserID"].ToString());
                         var game = db.CycleEvent.First(e => e.Id == id);
-                        if (!game.Deelnemers.Any(e => e.Id == 1))
+                        if(!game.Deelnemers.Any(e=>e.Id == userid))
                         {
-                            var User = db.User.First(e => e.Id == 1);
+                            var User = db.User.First(e => e.Id == userid);
                             game.Deelnemers.Add(User);
                             db.SaveChanges();
                         }

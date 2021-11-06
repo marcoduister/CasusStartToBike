@@ -40,79 +40,105 @@
 </style>
 <h2>Details</h2>
 
+    <div class="container-fluid">
+        @Html.HiddenFor(model => model.Id)
+        @Html.Hidden("latLng", "", new { @id = "latLng" })
+        @Html.Hidden("Metercount", "", new { @id = "Metercount" })
+        <div class="row">
+            <div class="col-md-3">
+                <div>
+                    <h4>CycleRoute</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Badge.BadgeName)
+                        </dt>
 
-<div class="container-fluid">
-    @Html.Hidden("latLng", "", new { @id = "latLng" })
-    <div class="row">
-        <div class="col-md-3">
-            <div>
-                <h4>CycleRoute</h4>
-                <hr />
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Badge.BadgeName)
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Badge.BadgeName)
+                        </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Badge.BadgeName)
-                    </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RouteName)
+                        </dt>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.RouteName)
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.RouteName)
+                        </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.RouteName)
-                    </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RouteType)
+                        </dt>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.RouteType)
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.RouteType)
+                        </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.RouteType)
-                    </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Difficulty)
+                        </dt>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Difficulty)
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Difficulty)
+                        </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Difficulty)
-                    </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.IsPublic)
+                        </dt>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.IsPublic)
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.IsPublic)
+                        </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.IsPublic)
-                    </dd>
-
-                </dl>
-            </div>
-        </div>
-
-        <div class="col-md-9">
-            <div id="container">
-                <div id="map" style="width: 500px; height: 500px"></div>
-                <div id="sidebar">
-                    <div id="directions-panel"></div>
+                    </dl>
                 </div>
             </div>
+
+            <div class="col-md-9">
+                <div id="container">
+                    <div id="map" style="width: 500px; height: 500px"></div>
+                    <div id="sidebar">
+                        <div id="directions-panel"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
     </div>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @if (Session["UserID"].ToString() == Model.MakerId.ToString())
+        {
+            Html.ActionLink("Edit", "Edit", new { id = Model.Id });
+            @Html.ActionLink("bewerk", "Edit", null, new { @class = "btn btn-success" })
+        }
+
+        @Html.ActionLink("Terug", "Index", null, new { @class = "btn btn-info" })
+        <input type="button" class="btn btn-info" value="start Fiets" id="RunButton" />
+    </p>
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-<script>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script>
+            $(document).ready(function () {
+
+                $('#RunButton').click(function () {
+
+                    $.ajax({
+                        url: "/CycleRoutes/Startbike",
+                        type: "POST",
+                        data: { id: @Model.Id, Kms: document.getElementById('Metercount').value },
+                        cache: false,
+                        async: true,
+                        success: function (data) {
+                            alert("uw heeft zo juist de route afgemaakt");
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script>
 
         $('document').ready(function () {
             var locationlist = '@Html.Raw(ViewBag.Routecollect)';
@@ -137,6 +163,7 @@
 
         const onChangeHandler = function () {
             calculateAndDisplayRoute(directionsService, directionsRenderer);
+
         };
         window.addEventListener("load", onChangeHandler);
     }
@@ -167,23 +194,29 @@
                 });
             }
         }
-
+        var metercount = 0;
         directionsService
             .route({
                 origin: JSON.parse(List[0]),
                 destination: JSON.parse(List[List.length - 1]),
                 waypoints: waypts,
                 optimizeWaypoints: true,
-                travelMode: google.maps.TravelMode.DRIVING,
+                travelMode: google.maps.TravelMode.BICYCLING,
             })
             .then((response) => {
                 directionsRenderer.setDirections(response);
+                response.routes[0].legs.forEach(
+                    element =>
+                        document.getElementById("Metercount").value += element.distance.value + ","
+                );
+
             })
             .catch((e) => window.alert("Directions request failed due to " + status));
+        var haha = "";
     }
-</script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQEASASbDlDyC3C52lh1xOQrjSaLmRS_o&callback=initMap&v=weekly" async defer>
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQEASASbDlDyC3C52lh1xOQrjSaLmRS_o&callback=initMap&v=weekly" async defer>
 
-    </script>
+        </script>
 
-}
+    }
