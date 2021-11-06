@@ -24,7 +24,7 @@
         </dt>
         <dd>
 
-            <p>@Html.DisplayFor(model => model.Follower)</p>
+            @*<p>@Html.DisplayFor(model => model.Follower)</p>*@
         </dd>
     </div>
     <div class="feature col">
@@ -32,14 +32,14 @@
             Followers
         </dt>
         <dd>
-            <p>@Html.DisplayFor(model => Convert.ToInt32(model.Follower1))</p>
+            @*<p>@Html.DisplayFor(model => model.Follower1.ToList().Count())</p>*@
         </dd>
         
     </div>
     <div>
         @if (Model.Id == Convert.ToInt32(Session["UserID"]))
         {
-
+            
         }
         else
         {

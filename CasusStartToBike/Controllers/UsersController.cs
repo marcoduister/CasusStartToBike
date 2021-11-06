@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using CasusStartToBike.Helper;
 using CasusStartToBike.Models;
 using CasusStartToBike.Data;
+using CasusStartToBike.ViewModels;
 using System.Data.Entity.Infrastructure;
 
 namespace CasusStartToBike.Controllers
@@ -173,12 +174,13 @@ namespace CasusStartToBike.Controllers
             return View(Model);
         }
 
-       
 
 
+        
         public ActionResult FollowUser(int? id)
         {
             DateTime date = DateTime.Today;
+
             var FId = Convert.ToInt32(id);
 
             Follower follower = new Follower()
