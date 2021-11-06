@@ -38,9 +38,7 @@
     <div>
         @if (Model.Id == Convert.ToInt32(Session["UserID"]))
         {
-            <td>
-                @Html.ActionLink("Gebruiker gegevens aanpassen", "Edit", new { id = Model.Id })
-            </td>
+            
         }
         else
         {

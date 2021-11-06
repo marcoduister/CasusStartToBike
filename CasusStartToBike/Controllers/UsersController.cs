@@ -192,8 +192,6 @@ namespace CasusStartToBike.Controllers
             db.Follower.Add(follower);
             db.SaveChanges();
 
-
-
             return RedirectToAction("Index");
 
 
