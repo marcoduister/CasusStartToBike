@@ -73,16 +73,13 @@ namespace CasusStartToBike.Controllers
         [HttpPost]
         [CheckAuth(Roles = "User,Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(User Model)
+        public ActionResult Edit([Bind(Include = "Id,Email,Password,IsActive,Role,Account")] User Model)
         {
-            if (ModelState.IsValid)
-            {
-                if (EditUser(Model))
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-            return View();
+            var account = db.Account.First(e => e.UserId == Model.Id);
+            Model.Account = account;
+            db.Entry(Model).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Profile", new { Id = Model.Id });
         }
 
         [HttpPost]
@@ -140,20 +137,7 @@ namespace CasusStartToBike.Controllers
 
         }
 
-        public bool EditUser(User Model)
-        {
-            if (!db.User.Any(e => e.Email == Model.Email))
-            {
-
-                db.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        
         //public void UploadProfileImage(byte[] _profileimage, int Id)
         //{
         //    if (db.Account.Any(e => e.UserId == Id))
