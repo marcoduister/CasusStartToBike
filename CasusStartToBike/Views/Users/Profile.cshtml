@@ -23,8 +23,7 @@
             Follows
         </dt>
         <dd>
-
-            @*<p>@Html.DisplayFor(model => model.Follower)</p>*@
+            <p>@Html.DisplayFor(model => model.Follower.ToList().Count)</p>
         </dd>
     </div>
     <div class="feature col">
@@ -32,14 +31,16 @@
             Followers
         </dt>
         <dd>
-            @*<p>@Html.DisplayFor(model => model.Follower1.ToList().Count())</p>*@
+            <p>@Html.DisplayFor(model => model.Follower1.ToList().Count)</p>
         </dd>
         
     </div>
     <div>
         @if (Model.Id == Convert.ToInt32(Session["UserID"]))
         {
-            
+            <td>
+                @Html.ActionLink("Gebruiker gegevens aanpassen", "Edit", new { id = Model.Id })
+            </td>
         }
         else
         {
@@ -49,6 +50,7 @@
    
 
 </div>
+
 
 
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">

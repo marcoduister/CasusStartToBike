@@ -71,7 +71,7 @@ namespace CasusStartToBike.Controllers
 
         // POST: Users/Edit/5
         [HttpPost]
-        [CheckAuth(Roles = "Admin")]
+        [CheckAuth(Roles = "User,Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User Model)
         {
