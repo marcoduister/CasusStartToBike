@@ -105,8 +105,13 @@
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (Session["UserID"].ToString() == Model.MakerId.ToString())
+    {
+        Html.ActionLink("Edit", "Edit", new { id = Model.Id });
+        @Html.ActionLink("bewerk", "Edit", null, new { @class = "btn btn-success" })
+    }
+
+    @Html.ActionLink("Terug", "Index", null, new { @class = "btn btn-info" })
 </p>
 
 

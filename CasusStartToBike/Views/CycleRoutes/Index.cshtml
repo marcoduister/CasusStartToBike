@@ -1,63 +1,137 @@
 ﻿@model IEnumerable<CasusStartToBike.Models.CycleRoute>
 
 @{
-    ViewBag.Title = "Route Overzicht";
+    ViewBag.Title = "Fiets Route Overzicht";
 }
+<h2>Fiets Route Overzicht</h2>
 
-<h2>Route Overzicht</h2>
 
-<p>
-    @Html.ActionLink("Aanmaken", "Create", null, new { @class = "btn btn-success" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RouteName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RouteType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Difficulty)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsPublic)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Badge.BadgeName)
-        </th>
-        <th></th>
-    </tr>
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-Public-tab" data-bs-toggle="pill" data-bs-target="#pills-Public" type="button" role="tab" aria-controls="pills-Public" aria-selected="true">Openbaar</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-Own-tab" data-bs-toggle="pill" data-bs-target="#pills-Own" type="button" role="tab" aria-controls="pills-Own" aria-selected="false">Mijn routes</button>
+    </li>
+</ul>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RouteName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RouteType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Difficulty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsPublic)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Badge.BadgeName)
-        </td>
-        <td>
-            @Html.ActionLink("Bewerk", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
-            @Html.ActionLink("Verwijder", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
-            @Html.ActionLink("Inzien", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
-        </td>
-    </tr>
-}
 
-</table>
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-Public" role="tabpanel" aria-labelledby="pills-Public-tab">
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RouteName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RouteType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Difficulty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Badge.BadgeName)
+                </th>
+                <th>
+                    Maker
+                </th>
+                <th></th>
+
+
+             
+            </tr>
+
+            @foreach (var item in Model.Where(e => e.MakerId.ToString() != Session["UserID"].ToString()))
+             {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RouteName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RouteType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Difficulty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Badge.BadgeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Account.LastName) Deze naam moet link worden naar profile van user
+                    </td>
+                    <td>
+                        @Html.ActionLink("Inzien", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    </td>
+                </tr>
+
+             }
+
+        </table>
+
+    </div>
+    <div class="tab-pane fade" id="pills-Own" role="tabpanel" aria-labelledby="pills-Own-tab">
+
+        <p>
+            @Html.ActionLink("Route aanmaken", "Create", null, new { @class = "btn btn-success" })
+        </p>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RouteName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RouteType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Difficulty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsPublic)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Badge.BadgeName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                if (item.MakerId.ToString() == Session["UserID"].ToString())
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RouteName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RouteType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Difficulty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Badge.BadgeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsPublic)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Bewerk", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
+                            @Html.ActionLink("Verwijder", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                            @Html.ActionLink("Inzien", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+    </div>
+</div>

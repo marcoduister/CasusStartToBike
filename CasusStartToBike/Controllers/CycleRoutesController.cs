@@ -67,13 +67,14 @@ namespace CasusStartToBike.Controllers
                 List<RouteLocation> RouteList = new List<RouteLocation>();
                 var locations = Request.Params["latLng"].Split('{');
 
+                int userid = int.Parse(Session["UserID"].ToString());
                 CycleRoute cycleroute = new CycleRoute()
                 {
                     IsPublic = cycleRoute.IsPublic,
                     RouteName = cycleRoute.RouteName,
                     BadgeId = cycleRoute.BadgeId,
                     Difficulty = cycleRoute.Difficulty,
-                    MakerId = 1,
+                    MakerId = userid,
                     RouteType = cycleRoute.RouteType
                 };
 
@@ -154,16 +155,17 @@ namespace CasusStartToBike.Controllers
             var locations = Request.Params["latLng"].Split('{');
             try
             {
+                int userid = int.Parse(Session["UserID"].ToString());
                 CycleRoute cycleroute = new CycleRoute()
                 {
                     IsPublic = Model.IsPublic,
                     RouteName = Model.RouteName,
                     BadgeId = Model.BadgeId,
                     Difficulty = Model.Difficulty,
-                    MakerId = 1,
+                    MakerId = userid,
                     RouteType = Model.RouteType
                 };
-                Model.MakerId = 1;
+                Model.MakerId = userid;
 
                 db.Entry(Model).State = EntityState.Modified;
                 db.SaveChanges();
