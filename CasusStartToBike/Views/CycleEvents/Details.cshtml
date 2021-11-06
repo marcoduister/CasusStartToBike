@@ -132,7 +132,7 @@
                         @Html.DisplayFor(modelItem => item.Account.Residence)
                     </td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#_Modal"> Profiel </button>
+                        @Html.ActionLink("Profiel bekijken", "Profile","Users", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
                     </td>
                 </tr>
             }

@@ -81,13 +81,10 @@
     </div>
     <div class="tab-pane fade" id="pills-Own" role="tabpanel" aria-labelledby="pills-Own-tab">
 
-
-        @if (true@*Session["UserRole"].ToString() != Models.Enums.Rolen.Player.ToString()*@)
-        {
             <p>
-                @Html.ActionLink("Spel aanmaken", "Create", null, new { @class = "btn btn-success" })
+                @Html.ActionLink("Fiets Evenement Aanmaken", "Create", null, new { @class = "btn btn-success" })
             </p>
-        }
+       
 
         <table class="table">
             <tr>
@@ -120,7 +117,7 @@
 
             @foreach (var item in Model)
             {
-                if (item.MakerId.ToString() ==  "1"/*Session["UserID"].ToString()*/ || item.Deelnemers.Any(e => e.Id.ToString() == "1" /*Session["UserID"].ToString()*/))
+                if (item.MakerId.ToString() ==  Session["UserID"].ToString() || item.Deelnemers.Any(e => e.Id.ToString() == Session["UserID"].ToString()))
                 {
                     <tr>
                         <td>
