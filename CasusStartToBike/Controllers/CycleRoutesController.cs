@@ -42,6 +42,39 @@ namespace CasusStartToBike.Controllers
             ViewBag.Routecollect = routecollect;
             return View(cycleRoute);
         }
+        public void Startbike(int? id, string Kms)
+        {
+
+            var count = Kms;
+            var kms = count.Split(',');
+            var totaal = 0;
+            foreach (var item in kms)
+            {
+                if (item != kms.Last())
+                {
+                    totaal += int.Parse(item);
+                }
+            }
+            int userId = int.Parse(Session["UserID"].ToString());
+            User currentUser = db.User.First(e => e.Id == userId);
+
+            if (currentUser != null)
+            {
+                CycleRoute cycleRoute = db.CycleRoute.Find(id);
+                Badge badge = db.Badge.Find(cycleRoute.BadgeId);
+                if (badge != null)
+                {
+                    //if (db.User.Any(e => e.bad == userid.))
+                    //{
+
+                    //}
+                }
+
+                currentUser.Account.Distance += totaal;
+                db.Entry(currentUser).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
 
         // GET: CycleRoutes/Create
         public ActionResult Create()
@@ -258,13 +291,6 @@ namespace CasusStartToBike.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        [HttpPost]
-        public void SetLocation(FormCollection formCollection)
-        {
-            string hahaha = formCollection["latLng"];
-
         }
     }
 }
