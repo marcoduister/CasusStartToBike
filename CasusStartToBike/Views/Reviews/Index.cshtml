@@ -11,13 +11,17 @@
     @{
         bool reviewExist = false;
 
-        var currentUserID = Session["UserID"] as string;
+        var currentUserID = Session["UserID"].ToString();
         if (currentUserID != null)
         {
             reviewExist = Model.Any(e => e.MakerId.ToString() == currentUserID);
         }
 
-        if (!reviewExist || Model.ToList().Count != 0)
+        if (reviewExist || Model.Any(e => e.CycleEvent.MakerId.ToString() == currentUserID))
+        {
+            <text>Action is not available</text>
+        }
+        else
         {
             @Html.ActionLink("Create New", "Create", new { @class = "btn btn-success" })
         }

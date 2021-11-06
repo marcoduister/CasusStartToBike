@@ -1,17 +1,22 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@{ ViewBag.Title = "Contact"; }
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="jumbotron">
+    <h1>Contacteer Ons</h1>
+    <p class="lead">
+        Heb je bepaalde vragen of wil je ons iets melden, neem dan gerust contact met ons op en we antwoorden je zo snel mogelijk!
+    </p>
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Naam</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="'Jan Klaas'">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Email-adres</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Bericht</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <p><a class="btn btn-primary btn-lg">Verstuur</a></p>
+</div>

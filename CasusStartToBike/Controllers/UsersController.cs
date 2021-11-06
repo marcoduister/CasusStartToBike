@@ -12,9 +12,10 @@ using System.Web.Mvc;
 using CasusStartToBike.Helper;
 using CasusStartToBike.Models;
 using CasusStartToBike.Data;
+using CasusStartToBike.ViewModels;
 using System.Data.Entity.Infrastructure;
 
-namespace zuydGotcha.Controllers
+namespace CasusStartToBike.Controllers
 {
     public class UsersController : Controller
     {
@@ -74,18 +75,15 @@ namespace zuydGotcha.Controllers
 
         // POST: Users/Edit/5
         [HttpPost]
-        [CheckAuth(Roles = "Admin")]
+        [CheckAuth(Roles = "User,Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(User Model)
+        public ActionResult Edit([Bind(Include = "Id,Email,Password,IsActive,Role,Account")] User Model)
         {
-            if (ModelState.IsValid)
-            {
-                if (EditUser(Model))
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-            return View();
+            var account = db.Account.First(e => e.UserId == Model.Id);
+            Model.Account = account;
+            db.Entry(Model).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Profile", new { Id = Model.Id });
         }
 
         [HttpPost]
@@ -143,20 +141,7 @@ namespace zuydGotcha.Controllers
 
         }
 
-        public bool EditUser(User Model)
-        {
-            if (!db.User.Any(e => e.Email == Model.Email))
-            {
-
-                db.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        
         //public void UploadProfileImage(byte[] _profileimage, int Id)
         //{
         //    if (db.Account.Any(e => e.UserId == Id))
@@ -177,22 +162,26 @@ namespace zuydGotcha.Controllers
             return View(Model);
         }
 
-        public ActionResult FollowUser(int id)
+
+
+        
+        public ActionResult FollowUser(int? id)
         {
             DateTime date = DateTime.Today;
+
+            var FId = Convert.ToInt32(id);
 
             Follower follower = new Follower()
             {
                 UserId = Convert.ToInt32(Session["UserId"]),
-                FollowerId = id,
+                FollowerId = FId,
                 Date = BitConverter.GetBytes(date.Ticks)
             };
             db.Follower.Add(follower);
             db.SaveChanges();
 
+            return RedirectToAction("Index");
 
-            var Model = db.User.Find(id);
-            return View(Model);
 
 
         }
