@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<CasusStartToBike.Models.Badge>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Badges";
 }
 
-<h2>Index</h2>
+<h2>Badges</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (Session["UserRole"].ToString() == "Admin") {
+        @Html.ActionLink("Nieuwe Aanmaken", "Create", null, new { @class = "btn btn-success" })
+    }
 </p>
 <table class="table">
     <tr>
@@ -29,9 +31,12 @@
             @Html.DisplayFor(modelItem => item.BadgeImage)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @if (Session["UserRole"].ToString() == "Admin")
+            {
+                @Html.ActionLink("Aanpassen", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
+                @Html.ActionLink("Verwijderen", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+            }
+            @Html.ActionLink("Delen", "Details", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
         </td>
     </tr>
 }

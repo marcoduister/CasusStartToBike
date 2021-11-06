@@ -1,9 +1,6 @@
-﻿using System;
+﻿using CasusStartToBike.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using CasusStartToBike.Models;
 
 namespace CasusStartToBike.ViewModels
 {

@@ -1,15 +1,12 @@
-﻿using System;
+﻿using CasusStartToBike.Data;
+using CasusStartToBike.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using CasusStartToBike.Data;
-using CasusStartToBike.Models;
-using CasusStartToBike.ViewModels;
-using Newtonsoft.Json.Linq;
 
 namespace CasusStartToBike.Controllers
 {
@@ -36,7 +33,7 @@ namespace CasusStartToBike.Controllers
             {
                 return HttpNotFound();
             }
-            List<RouteLocation> route = db.RouteLocation.Where(e=>e.RouteId == id).ToList();
+            List<RouteLocation> route = db.RouteLocation.Where(e => e.RouteId == id).ToList();
             string routecollect = "";
             foreach (var item in route)
             {
@@ -44,6 +41,47 @@ namespace CasusStartToBike.Controllers
             }
             ViewBag.Routecollect = routecollect;
             return View(cycleRoute);
+        }
+        public void Startbike(int? id, string Kms)
+        {
+
+            var count = Kms;
+            var kms = count.Split(',');
+            var totaal = 0;
+            foreach (var item in kms)
+            {
+                if (item != kms.Last())
+                {
+                    totaal += int.Parse(item);
+                }
+            }
+            int userId = int.Parse(Session["UserID"].ToString());
+            User currentUser = db.User.First(e => e.Id == userId);
+
+            if (currentUser != null)
+            {
+                CycleRoute cycleRoute = db.CycleRoute.Find(id);
+                Badge badge = db.Badge.Find(cycleRoute.BadgeId);
+                if (badge != null)
+                {
+                    var old = currentUser.Account.Distance;
+                    var total = currentUser.Account.Distance += totaal;
+
+                    List<Badge> badges = db.Badge.ToList();
+                    foreach (var b in badges)
+                    {
+                        // If distance is between the old distance and the new, add the badge to the list. This prevent duplicates in the list.
+                        if (b.BadgeLimit > old && b.BadgeLimit < totaal)
+                        {
+                            currentUser.Badges.Add(b);
+                        }
+                    }
+                }
+
+                currentUser.Account.Distance += totaal;
+                db.Entry(currentUser).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         // GET: CycleRoutes/Create
@@ -63,7 +101,7 @@ namespace CasusStartToBike.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 List<RouteLocation> RouteList = new List<RouteLocation>();
                 var locations = Request.Params["latLng"].Split('{');
 
@@ -84,36 +122,38 @@ namespace CasusStartToBike.Controllers
                     context.SaveChanges();
                 }
 
-                    int RouteId = cycleroute.Id; // Yes it's here
-                    int LastLocationId = 0;
-                    foreach (var item in locations)
+                int RouteId = cycleroute.Id; // Yes it's here
+                int LastLocationId = 0;
+                foreach (var item in locations)
+                {
+
+                    var location = "{" + item;
+                    if (location != "{")
                     {
-                        
-                        var location = "{" + item;
-                        if (location != "{")
+                        try
                         {
-                            try
+                            RouteLocation Location = new RouteLocation()
                             {
-                                RouteLocation Location = new RouteLocation()
-                                {
-                                    RouteId = RouteId,
-                                    Location = location,
-                                };
-                                if (LastLocationId != 0 && locations.First() != item)
-                                {
-                                    Location.LastLocationId = LastLocationId;
-                                }
-                                db.RouteLocation.Add(Location);
-                                db.SaveChanges();
-                                LastLocationId = Location.Id;
-                            }
-                            catch (Exception ex)
+                                RouteId = RouteId,
+                                Location = location,
+                            };
+                            if (LastLocationId != 0 && locations.First() != item)
                             {
-                                throw;
+                                Location.LastLocationId = LastLocationId;
                             }
-                            
+                            db.RouteLocation.Add(Location);
+                            db.SaveChanges();
+                            LastLocationId = Location.Id;
                         }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
+                        catch (Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
+                        {
+                            throw;
+                        }
+
                     }
+                }
                 return RedirectToAction("Index");
             }
 
@@ -130,7 +170,7 @@ namespace CasusStartToBike.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var Model = db.CycleRoute.Find(id);
-            
+
             if (Model == null)
             {
                 return HttpNotFound();
@@ -170,12 +210,14 @@ namespace CasusStartToBike.Controllers
                 db.Entry(Model).State = EntityState.Modified;
                 db.SaveChanges();
             }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
 
                 throw;
             }
-            
+
             db.RouteLocation.RemoveRange(db.RouteLocation.Where(x => x.RouteId == Model.Id));
 
             int LastLocationId = 0;
@@ -200,7 +242,9 @@ namespace CasusStartToBike.Controllers
                         db.SaveChanges();
                         LastLocationId = Location.Id;
                     }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
                     catch (Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
                     {
                         throw;
                     }
@@ -209,7 +253,7 @@ namespace CasusStartToBike.Controllers
             }
             if (ModelState.IsValid)
             {
-                
+
                 return RedirectToAction("Index");
             }
             ViewBag.BadgeId = new SelectList(db.Badge, "Id", "BadgeName", Model.BadgeId);
@@ -255,13 +299,6 @@ namespace CasusStartToBike.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        [HttpPost]
-        public void SetLocation(FormCollection formCollection)
-        {
-            string hahaha = formCollection["latLng"];
-
         }
     }
 }

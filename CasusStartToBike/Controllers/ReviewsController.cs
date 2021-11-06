@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using CasusStartToBike.Data;
+using CasusStartToBike.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using CasusStartToBike.Data;
-using CasusStartToBike.Models;
 
 namespace CasusStartToBike.Controllers
 {
@@ -16,14 +12,27 @@ namespace CasusStartToBike.Controllers
         private STBDContext db = new STBDContext();
 
         // GET: Reviews
-        public ActionResult Index()
+        public ActionResult Index(int? id, bool route = true)
         {
+            if (id != null)
+            {
+                if (route)
+                {
+                    var reviewRoute = db.Review.Include(r => r.CycleEvent).Include(r => r.CycleRoute).Include(r => r.User).Where(r => r.CycleRoute.Id == id);
+                    return View(reviewRoute.ToList());
+                }
+                else
+                {
+                    var reviewEvent = db.Review.Include(r => r.CycleEvent).Include(r => r.CycleRoute).Include(r => r.User).Where(r => r.CycleEvent.Id == id);
+                    return View(reviewEvent.ToList());
+                }
+            }
             var review = db.Review.Include(r => r.CycleEvent).Include(r => r.CycleRoute).Include(r => r.User);
             return View(review.ToList());
         }
 
         // GET: Reviews/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? route, int? ev)
         {
             if (id == null)
             {
@@ -36,6 +45,8 @@ namespace CasusStartToBike.Controllers
             }
             return View(review);
         }
+
+
 
         // GET: Reviews/Create
         public ActionResult Create()

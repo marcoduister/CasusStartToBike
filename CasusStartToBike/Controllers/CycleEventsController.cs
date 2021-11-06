@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using CasusStartToBike.Data;
+using CasusStartToBike.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using CasusStartToBike.Data;
-using CasusStartToBike.Models;
 
 namespace CasusStartToBike.Controllers
 {
@@ -103,7 +100,7 @@ namespace CasusStartToBike.Controllers
         {
             if (id != 0)
             {
-                if (db.CycleEvent.Any(e=>e.Id == id))
+                if (db.CycleEvent.Any(e => e.Id == id))
                 {
                     try
                     {
@@ -122,13 +119,13 @@ namespace CasusStartToBike.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    
+
                 }
             }
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public ActionResult Unsubscribe(int EventId,int UserId)
+        public ActionResult Unsubscribe(int EventId, int UserId)
         {
             if (EventId != 0)
             {

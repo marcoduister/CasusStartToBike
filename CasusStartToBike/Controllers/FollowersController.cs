@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using CasusStartToBike.Data;
+using CasusStartToBike.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using CasusStartToBike.Data;
-using CasusStartToBike.Models;
 
 namespace CasusStartToBike.Controllers
 {

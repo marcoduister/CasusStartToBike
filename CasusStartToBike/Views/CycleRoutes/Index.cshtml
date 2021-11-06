@@ -64,6 +64,7 @@
                     </td>
                     <td>
                         @Html.ActionLink("Inzien", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                        @Html.ActionLink("Reviews", "Index", "Reviews", new { id = item.Id, route = true }, new { @class = "btn btn-dark btn-sm" })
                     </td>
                 </tr>
 
@@ -101,36 +102,34 @@
                 <th></th>
             </tr>
 
-            @foreach (var item in Model)
-            {
-                if (item.MakerId.ToString() == Session["UserID"].ToString())
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RouteName)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RouteType)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Difficulty)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Badge.BadgeName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IsPublic)
-                        </td>
-
-                        <td>
-                            @Html.ActionLink("Bewerk", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
-                            @Html.ActionLink("Verwijder", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
-                            @Html.ActionLink("Inzien", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
-                        </td>
-                    </tr>
-                }
-            }
+@foreach (var item in Model.Where(e => e.MakerId.ToString() == Session["UserID"].ToString())) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RouteName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RouteType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Difficulty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPublic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Badge.BadgeName)
+        </td>
+        <td>
+            @Html.ActionLink("Bewerk", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
+            @Html.ActionLink("Verwijder", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+            @Html.ActionLink("Inzien", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+            @Html.ActionLink("Reviews", "Index", "Reviews", new { id = item.Id, route = true}, new { @class = "btn btn-dark btn-sm" })
+        </td>
+    </tr>
+}
 
         </table>
     </div>

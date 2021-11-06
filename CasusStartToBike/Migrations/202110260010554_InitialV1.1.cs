@@ -1,8 +1,7 @@
 namespace CasusStartToBike.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class InitialV11 : DbMigration
     {
         public override void Up()
@@ -12,19 +11,19 @@ namespace CasusStartToBike.Migrations
             CreateTable(
                 "dbo.CycleEventUsers",
                 c => new
-                    {
-                        CycleEvent_Id = c.Int(nullable: false),
-                        User_Id = c.Int(nullable: false),
-                    })
+                {
+                    CycleEvent_Id = c.Int(nullable: false),
+                    User_Id = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => new { t.CycleEvent_Id, t.User_Id })
                 .ForeignKey("dbo.CycleEvent", t => t.CycleEvent_Id, cascadeDelete: true)
                 .ForeignKey("dbo.User", t => t.User_Id, cascadeDelete: true)
                 .Index(t => t.CycleEvent_Id)
                 .Index(t => t.User_Id);
-            
+
             DropColumn("dbo.User", "CycleEvent_Id");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.User", "CycleEvent_Id", c => c.Int());

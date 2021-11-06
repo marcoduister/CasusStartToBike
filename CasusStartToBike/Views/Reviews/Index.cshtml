@@ -4,10 +4,29 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Reviews</h2>
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @{
+        bool reviewExist = false;
+
+        var currentUserID = Session["UserID"].ToString();
+        if (currentUserID != null)
+        {
+            reviewExist = Model.Any(e => e.MakerId.ToString() == currentUserID);
+        }
+
+        if (reviewExist || Model.Any(e => e.CycleEvent.MakerId.ToString() == currentUserID))
+        {
+            <text>Action is not available</text>
+        }
+        else
+        {
+            @Html.ActionLink("Create New", "Create", new { @class = "btn btn-success" })
+        }
+
+    }
 </p>
 <table class="table">
     <tr>
@@ -29,29 +48,76 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CycleEvent.EventName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CycleRoute.RouteName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rating)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        var userID = Session["UserID"] as string;
+        if (userID != null)
+        {
+
+
+            if (userID == item.MakerId.ToString())
+            {
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CycleEvent.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CycleRoute.RouteName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Aanpassen", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Verwijderen", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+            }
+        }
+    }
+
+    @foreach (var item in Model)
+    {
+        var userID = Session["UserID"] as string;
+        if (userID != null)
+        {
+            if (userID == item.MakerId.ToString())
+            {
+                continue;
+            }
+        }
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CycleEvent.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CycleRoute.RouteName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Aanpassen", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Verwijderen", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -1,14 +1,11 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using CasusStartToBike.Models;
-using System.Linq;
+using System.Data.Entity;
 
 namespace CasusStartToBike.Data
 {
     public partial class STBDContext : DbContext
     {
-        public STBDContext(): base("name=STBDContext")
+        public STBDContext() : base("name=STBDContext")
         {
 
         }
@@ -54,6 +51,10 @@ namespace CasusStartToBike.Data
             modelBuilder.Entity<CycleEvent>()
                 .HasMany(e => e.Deelnemers)
                 .WithMany(e => e.CycleEvent_Participate);
+            
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Badges)
+                .WithMany(e => e.User);
 
             modelBuilder.Entity<CycleEvent>()
                 .HasMany(e => e.Review)
@@ -144,7 +145,7 @@ namespace CasusStartToBike.Data
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
-                .HasKey(e=>e.Id)
+                .HasKey(e => e.Id)
                 .HasOptional(s => s.Account)
                 .WithRequired(ad => ad.User);
 
