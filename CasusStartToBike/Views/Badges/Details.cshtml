@@ -10,25 +10,10 @@
     <h4>Badge</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BadgeName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BadgeName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BadgeImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BadgeImage)
-        </dd>
-
+        <p>
+            Deze functionaliteit is nog niet geïmplementeerd.
+        </p>
+        @Html.ActionLink("Terug naar de lijst", "Index", null, new { @class = "btn btn-light" })
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
