@@ -14,6 +14,7 @@ namespace CasusStartToBike.Controllers
         // GET: Badges
         public ActionResult Index()
         {
+            ViewBag.Badge = db.Badge.ToList();
             return View(db.Badge.ToList());
         }
 
